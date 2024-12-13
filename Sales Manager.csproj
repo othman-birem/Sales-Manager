@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Tools\cart.png" />
+    <None Remove="Assets\Tools\shopping-cart.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.20" />
@@ -23,9 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Folder Include="Common\UI\Fonts\" />
+    <Folder Include="Common\UI\Themes\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Tools\cart.png" />
   </ItemGroup>
 
 </Project>

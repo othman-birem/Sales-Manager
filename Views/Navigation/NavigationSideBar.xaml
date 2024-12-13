@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Sales_Manager.Views.Navigation.NavigationSideBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Sales_Manager.Views.Navigation" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="70">
+   <StackPanel VerticalAlignment="Top">
+      <RadioButton x:Name="Register_btn" GroupName="NavigationMenuGroup"
+                   Style="{StaticResource NavigationButton}" Tag="Cart">
+         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
+      </RadioButton>
+      <RadioButton GroupName="NavigationMenuGroup"
+             Style="{StaticResource NavigationButton}" Tag="Cart">
+         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
+      </RadioButton>
+      <RadioButton GroupName="NavigationMenuGroup"
+             Style="{StaticResource NavigationButton}" Tag="Cart">
+         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
+      </RadioButton>
+   </StackPanel>
+</UserControl>

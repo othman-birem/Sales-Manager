@@ -3,6 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Sales_Manager">
    <Application.Resources>
-         
-    </Application.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary Source="/Common/UI/Themes/WindowToolsTheme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/PlanPanelRadio_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/StrongPlanPanelRadio_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/closing_btn_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/FuturisticButton_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/progressBar_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/Textbox_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/toolTip_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/checkBox_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/comboBox_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/ComboBoxItem_Theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/RadioButton_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/RoundBtnTheme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/scrollBar_theme.xaml"/>
+            <ResourceDictionary Source="/Common/UI/Themes/NavigationButton_theme.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+         <Style BasedOn="{StaticResource Textbox_theme}" TargetType="TextBox"/>
+         <Style BasedOn="{StaticResource toolTip_theme}" TargetType="ToolTip"/>
+         <Style BasedOn="{StaticResource checkBox}" TargetType="CheckBox"/>
+         <Style BasedOn="{StaticResource comboBox_theme}" TargetType="ComboBox"/>
+         <Style BasedOn="{StaticResource ComboBoxItem}" TargetType="ComboBoxItem"/>
+         <Style BasedOn="{StaticResource RadioButton_theme}" TargetType="RadioButton"/>
+      </ResourceDictionary>
+   </Application.Resources>
 </Application>

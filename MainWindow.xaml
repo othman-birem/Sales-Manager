@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sales_Manager"
-        mc:Ignorable="d"
+        xmlns:nav="clr-namespace:Sales_Manager.Views.Navigation"
+        mc:Ignorable="d" FontFamily="/Common/UI/Fonts/#cabin"
         Title="MainWindow" Height="450" Width="800">
    <Grid>
-      
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="80"/>
+         <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+
+      <Border>
+         <nav:NavigationSideBar/>
+      </Border>
+
+      <Frame x:Name="MainFrame" Grid.Column="1" Navigating="MainFrame_Navigating"/>
    </Grid>
 </Window>
