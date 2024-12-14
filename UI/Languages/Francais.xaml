@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+   <FontFamily x:Key="MainFontFamily">/UI/fonts/#cabin</FontFamily>
+   <FlowDirection x:Key="TextDirection">LeftToRight</FlowDirection>
+
+   <system:String x:Key="ToolString1">
+      Soumettre
+   </system:String>
+</ResourceDictionary>

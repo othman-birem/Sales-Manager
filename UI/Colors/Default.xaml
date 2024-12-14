@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+   <Color x:Key="PrimaryColor">#F49F0A</Color>
+   
+   <SolidColorBrush x:Key="PrimaryAccentBrush" Color="#F49F0A"/>
+   <SolidColorBrush x:Key="HoverAccentBrush" Color="#f7af31"/>
+   <SolidColorBrush x:Key="ClickAccentBrush" Color="#f9c261"/>
+</ResourceDictionary>

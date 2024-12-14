@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace Sales_Manager.Views.Navigation
 {
@@ -23,6 +12,27 @@ namespace Sales_Manager.Views.Navigation
         public NavigationSideBar()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Storyboard storyboard = new();
+            CircleEase ease = new() { EasingMode = EasingMode.EaseOut };
+
+            DoubleAnimation animation = new()
+            {
+                EasingFunction = ease,
+                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+                From = (Boolean)e.NewValue ? 0.0 : 80.0,
+                To = (Boolean)e.NewValue ? 80.0 : 0.0
+            };
+
+            storyboard.Children.Add(animation);
+
+            Storyboard.SetTarget(animation, this);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(UserControl.WidthProperty));
+
+            storyboard.Begin();
         }
     }
 }

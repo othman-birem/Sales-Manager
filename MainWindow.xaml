@@ -5,18 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sales_Manager"
         xmlns:nav="clr-namespace:Sales_Manager.Views.Navigation"
+        xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
         mc:Ignorable="d" FontFamily="/Common/UI/Fonts/#cabin"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Sales Manager" Height="500" Width="900">
+   <Window.Resources>
+      <Converters:BoolToGridLengthConverter x:Key="BoolToGridLengthConverter"/>
+   </Window.Resources>
    <Grid>
       <Grid.ColumnDefinitions>
-         <ColumnDefinition Width="80"/>
+         <ColumnDefinition Width="{Binding IsLoggedIn, Converter={StaticResource BoolToGridLengthConverter}}"
+                           d:Width="80"/>
          <ColumnDefinition/>
       </Grid.ColumnDefinitions>
 
-      <Border>
-         <nav:NavigationSideBar/>
-      </Border>
+      <nav:NavigationSideBar x:Name="navbar"/>
 
-      <Frame x:Name="MainFrame" Grid.Column="1" Navigating="MainFrame_Navigating"/>
+      <Frame x:Name="MainFrame" Grid.Column="1" Navigating="MainFrame_Navigating"
+             NavigationUIVisibility="Hidden"
+             Content="{Binding ActiveView}"/>
    </Grid>
 </Window>

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media.Animation;
 using System.Windows;
 
-namespace Sales_Manager.Common.Helpers
+namespace Sales_Manager.Modules.Helpers
 {
     internal class GridLengthAnimation : AnimationTimeline
     {

@@ -39,7 +39,7 @@
 
                <ControlTemplate.Triggers>
                   <Trigger Property="IsFocused" Value="True">
-                     <Setter TargetName="outer_border" Property="BorderBrush" Value="#3f96ed"/>
+                     <Setter TargetName="outer_border" Property="BorderBrush" Value="{DynamicResource PrimaryAccentBrush}"/>
                   </Trigger>
                   <Trigger Property="IsEnabled" Value="False">
                      <Setter TargetName="border" Property="Background" Value="#eeeeee"/>

@@ -6,19 +6,51 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:Sales_Manager.Views.Navigation" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="70">
-   <StackPanel VerticalAlignment="Top">
-      <RadioButton x:Name="Register_btn" GroupName="NavigationMenuGroup"
-                   Style="{StaticResource NavigationButton}" Tag="Cart">
-         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
-      </RadioButton>
-      <RadioButton GroupName="NavigationMenuGroup"
-             Style="{StaticResource NavigationButton}" Tag="Cart">
-         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
-      </RadioButton>
-      <RadioButton GroupName="NavigationMenuGroup"
-             Style="{StaticResource NavigationButton}" Tag="Cart">
-         <Image Source="/Assets/Tools/cart.png" Stretch="Uniform"/>
-      </RadioButton>
-   </StackPanel>
+             d:DesignHeight="450" d:DesignWidth="70"
+             Background="#f3f8f5" IsVisibleChanged="UserControl_IsVisibleChanged">
+   <DockPanel>
+      
+      <StackPanel VerticalAlignment="Top" DockPanel.Dock="Top">
+         <RadioButton x:Name="OrdersButtons" GroupName="NavigationMenuGroup"
+                      Style="{StaticResource NavigationButton}" Tag="Orders">
+            <i:Interaction.Triggers>
+               <i:EventTrigger EventName="Checked">
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="1" />
+               </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Assets/Sections/cart.png" Stretch="Uniform"/>
+         </RadioButton>
+         <RadioButton x:Name="CustomersButton" GroupName="NavigationMenuGroup"
+             Style="{StaticResource NavigationButton}" Tag="Clients">
+            <i:Interaction.Triggers>
+               <i:EventTrigger EventName="Checked">
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="2" />
+               </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Assets/Sections/people.png" Stretch="Uniform"/>
+         </RadioButton>
+         <RadioButton x:Name="AccountsButton" GroupName="NavigationMenuGroup"
+                      Style="{StaticResource NavigationButton}" Tag="Accounts">
+            <i:Interaction.Triggers>
+               <i:EventTrigger EventName="Checked">
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="3" />
+               </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Assets/Sections/accounts.png" Stretch="Uniform"/>
+         </RadioButton>
+      </StackPanel>
+      
+      
+      <StackPanel VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+         <RadioButton Name="SettingButton" GroupName="NavigationMenuGroup"
+             Style="{StaticResource NavigationButton}" Tag="Settings">
+            <i:Interaction.Triggers>
+               <i:EventTrigger EventName="Checked">
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="4" />
+               </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Assets/Tools/settings.png" Stretch="Uniform"/>
+         </RadioButton>
+      </StackPanel>
+   </DockPanel>
 </UserControl>

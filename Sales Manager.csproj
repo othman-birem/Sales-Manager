@@ -7,11 +7,41 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Logo\SalesManagerIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Tools\cart.png" />
+    <None Remove="Assets\Controls\view.png" />
+    <None Remove="Assets\Controls\view_checked.png" />
+    <None Remove="Assets\Sections\accounts.png" />
+    <None Remove="Assets\Sections\cart.png" />
+    <None Remove="Assets\Sections\people.png" />
+    <None Remove="Assets\Tools\cancelIcon.png" />
+    <None Remove="Assets\Tools\pencil.png" />
+    <None Remove="Assets\Tools\plus.png" />
+    <None Remove="Assets\Tools\settings.png" />
     <None Remove="Assets\Tools\shopping-cart.png" />
+    <None Remove="UI\Fonts\Cabin-Bold.ttf" />
+    <None Remove="UI\Fonts\Cabin-BoldItalic.ttf" />
+    <None Remove="UI\Fonts\Cabin-Italic.ttf" />
+    <None Remove="UI\Fonts\Cabin-Medium.ttf" />
+    <None Remove="UI\Fonts\Cabin-MediumItalic.ttf" />
+    <None Remove="UI\Fonts\Cabin-Regular.ttf" />
+    <None Remove="UI\Fonts\Cabin-SemiBold.ttf" />
+    <None Remove="UI\Fonts\Cabin-SemiBoldItalic.ttf" />
+    <None Remove="UI\Fonts\DancingScript-Bold.ttf" />
+    <None Remove="UI\Fonts\DancingScript-Medium.ttf" />
+    <None Remove="UI\Fonts\DancingScript-Regular.ttf" />
+    <None Remove="UI\Fonts\DancingScript-SemiBold.ttf" />
+    <None Remove="UI\Fonts\PTSansNarrow-Bold.ttf" />
+    <None Remove="UI\Fonts\PTSansNarrow-Regular.ttf" />
+    <None Remove="UI\Fonts\Rubik-Italic-VariableFont_wght.ttf" />
+    <None Remove="UI\Fonts\Rubik-VariableFont_wght.ttf" />
+    <None Remove="UI\Fonts\SegoeUIVF.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Logo\SalesManagerIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,16 +55,36 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\UI\Fonts\" />
-    <Folder Include="Common\UI\Themes\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\Tools\cart.png" />
+    <Resource Include="Assets\Controls\view.png" />
+    <Resource Include="Assets\Controls\view_checked.png" />
+    <Resource Include="Assets\Sections\accounts.png" />
+    <Resource Include="Assets\Sections\cart.png" />
+    <Resource Include="Assets\Sections\people.png" />
+    <Resource Include="Assets\Tools\cancelIcon.png" />
+    <Resource Include="Assets\Tools\pencil.png" />
+    <Resource Include="Assets\Tools\plus.png" />
+    <Resource Include="Assets\Tools\settings.png" />
+    <Resource Include="UI\Fonts\Cabin-Bold.ttf" />
+    <Resource Include="UI\Fonts\Cabin-BoldItalic.ttf" />
+    <Resource Include="UI\Fonts\Cabin-Italic.ttf" />
+    <Resource Include="UI\Fonts\Cabin-Medium.ttf" />
+    <Resource Include="UI\Fonts\Cabin-MediumItalic.ttf" />
+    <Resource Include="UI\Fonts\Cabin-Regular.ttf" />
+    <Resource Include="UI\Fonts\Cabin-SemiBold.ttf" />
+    <Resource Include="UI\Fonts\Cabin-SemiBoldItalic.ttf" />
+    <Resource Include="UI\Fonts\DancingScript-Bold.ttf" />
+    <Resource Include="UI\Fonts\DancingScript-Medium.ttf" />
+    <Resource Include="UI\Fonts\DancingScript-Regular.ttf" />
+    <Resource Include="UI\Fonts\DancingScript-SemiBold.ttf" />
+    <Resource Include="UI\Fonts\PTSansNarrow-Bold.ttf" />
+    <Resource Include="UI\Fonts\PTSansNarrow-Regular.ttf" />
+    <Resource Include="UI\Fonts\Rubik-Italic-VariableFont_wght.ttf" />
+    <Resource Include="UI\Fonts\Rubik-VariableFont_wght.ttf" />
+    <Resource Include="UI\Fonts\SegoeUIVF.ttf" />
   </ItemGroup>
 
 </Project>

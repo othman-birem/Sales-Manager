@@ -5,22 +5,34 @@
    <Application.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="UI/Languages/English.xaml"/>
 
-            <ResourceDictionary Source="/Common/UI/Themes/WindowToolsTheme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/PlanPanelRadio_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/StrongPlanPanelRadio_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/closing_btn_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/FuturisticButton_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/progressBar_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/Textbox_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/toolTip_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/checkBox_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/comboBox_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/ComboBoxItem_Theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/RadioButton_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/RoundBtnTheme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/scrollBar_theme.xaml"/>
-            <ResourceDictionary Source="/Common/UI/Themes/NavigationButton_theme.xaml"/>
+            <ResourceDictionary Source="UI/Colors/Default.xaml"/>
+
+
+            <ResourceDictionary Source="/UI/Themes/WindowToolsTheme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/PlanPanelRadio_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/StrongPlanPanelRadio_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/closing_btn_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/FuturisticButton_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/progressBar_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/Textbox_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/toolTip_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/checkBox_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/comboBox_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/ComboBoxItem_Theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/RadioButton_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/RoundBtnTheme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/scrollBar_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/NavigationButton_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/FloatingBtn_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/passwordBox_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/PrimaryButton_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/dataGrid_cell_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/dataGrid_columnHeader_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/dataGrid_row_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/dataGrid_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/scrollBar_theme.xaml"/>
          </ResourceDictionary.MergedDictionaries>
          <Style BasedOn="{StaticResource Textbox_theme}" TargetType="TextBox"/>
          <Style BasedOn="{StaticResource toolTip_theme}" TargetType="ToolTip"/>
