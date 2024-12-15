@@ -10,6 +10,7 @@
       Title="LoginPage" Background="#E4F0F6">
    <Page.Resources>
       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+      <Converters:BoolToGridLengthConverter x:Key="NegateBoolConverter"/>
    </Page.Resources>
    <Grid>
       <Grid>
@@ -54,33 +55,20 @@
             <TextBlock x:Name="UsernameBox" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                       Text="User Name"
                       Margin="5,8" Grid.Row="1" FontSize="16"/>
-            <TextBox x:Name="usernameField"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                    Grid.Column="1" Grid.Row="1" KeyDown="KeyPressed"
-                    Margin="5,0" FontSize="14"
-                    Width="240" Height="30"/>
+            <TextBox x:Name="usernameField" Grid.Column="1" Grid.Row="1"
+                     VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                     Margin="5,0" FontSize="14"
+                     KeyDown="KeyPressed" Text="{Binding Name, Mode=TwoWay}"
+                     Width="240" />
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"
                       Text="Password"
                       Margin="5,0" FontSize="16" Grid.Row="2"/>
-            <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Left"
-                        Grid.Column="1" Grid.Row="2">
-               <PasswordBox x:Name="passwordField" 
-                            PasswordChar="*" KeyDown="KeyPressed"
-                            Margin="5,0" FontSize="14"
-                            Width="240" Height="30"
-                            Style="{StaticResource password_theme}"/>
-               <TextBox Name="passwordTxtBox" Visibility="Collapsed"
-                        Margin="5,0" FontSize="13"
-                        Width="240" Height="30"/>
-               <Button Margin="-40,0,0,2" Height="25" Width="25" 
-                       Click="viewPassword_Click"
-                       Style="{StaticResource FloatingBtn_theme}">
-                  <Image  x:Name="viewImage"   
-                           Source="/Assets/Controls/view.png" Margin="3"/>
-               </Button>
-            </StackPanel>
+            
+            <TextBox Name="passwordTxtBox" Grid.Column="1" Grid.Row="2"
+                     VerticalAlignment="Center" HorizontalAlignment="Left"
+                     Margin="5,0" FontSize="14"
+                     Width="240" KeyDown="KeyPressed"
+                     Text="{Binding Password, Mode=TwoWay}"/>
 
             <TextBlock Name="ErrorBlock" Grid.Row="3" Grid.ColumnSpan="2"
                        HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -91,8 +79,9 @@
             <Button x:Name="SubmitButton" Content="{DynamicResource ToolString1}"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                     Grid.Column="1" Grid.Row="3"
-                    Margin="15, 10" Click="Button_Click"
-                    Style="{StaticResource PrimaryButton}"/>
+                    Margin="15, 10" Command="{Binding LoginCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"/>
 
          </Grid>
       </Border>

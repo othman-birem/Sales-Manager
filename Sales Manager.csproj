@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.20" />
@@ -56,6 +57,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,6 +87,10 @@
     <Resource Include="UI\Fonts\Rubik-Italic-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\Rubik-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\SegoeUIVF.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\FakeData\" />
   </ItemGroup>
 
 </Project>

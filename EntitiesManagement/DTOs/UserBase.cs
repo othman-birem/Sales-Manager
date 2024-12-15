@@ -12,7 +12,6 @@ namespace Sales_Manager.EntitiesManagement.DTOs
         public int Id { get; set; } = 0;
 
         [Required]
-        [EmailAddress]
         public string Name { get; set; } = string.Empty;
 
         [Required]

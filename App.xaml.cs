@@ -1,4 +1,5 @@
-﻿using Sales_Manager.ViewModels;
+﻿using Sales_Manager.EntitiesManagement;
+using Sales_Manager.ViewModels;
 using System.Windows;
 
 namespace Sales_Manager
@@ -14,7 +15,8 @@ namespace Sales_Manager
         {
             base.OnStartup(e);
 
-            MainVM = new MainWindowViewModel();
+            DesignTimeDbContextFactory factory = new();
+            MainVM = new MainWindowViewModel(factory);
             MainWindow win = new(MainVM);
             MainWindow = win;
             win.Show();

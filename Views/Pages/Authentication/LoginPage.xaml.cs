@@ -20,33 +20,9 @@ namespace Sales_Manager.Views.Pages.Authentication
             DataContext = vm;
         }
 
-        private void viewPassword_Click(object sender, RoutedEventArgs e)
-        {
-            if (passwordField.PasswordChar == '*')
-            {
-                SwitchIcon("/Assets/view_checked.png");
-                passwordTxtBox.Text = passwordField.Password;
-                passwordField.Visibility = Visibility.Collapsed;
-                passwordTxtBox.Visibility = Visibility.Visible;
-                passwordField.PasswordChar = '\0';
-            }
-            else
-            {
-                SwitchIcon("/Assets/view.png");
-                passwordField.Password = passwordTxtBox.Text;
-                passwordTxtBox.Visibility = Visibility.Collapsed;
-                passwordField.Visibility = Visibility.Visible;
-                passwordField.PasswordChar = '*';
-            }
-        }
         public void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) { SubmitButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent)); }
-        }
-        private void SwitchIcon(string path)
-        {
-            BitmapImage image = new(new Uri(path, UriKind.Relative));
-            viewImage.Source = image;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

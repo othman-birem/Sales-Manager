@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Models.Common;
 using Sales_Manager.Modules.Common;
+using Sales_Manager.Services;
 using Sales_Manager.ViewModels.Navigation;
 using Sales_Manager.ViewModels.Pages;
 using Sales_Manager.Views.Pages.Authentication;
@@ -12,6 +14,7 @@ namespace Sales_Manager.ViewModels
 {
     public partial class MainWindowViewModel : BaseViewModel
     {
+        #region View/Models
         [ObservableProperty] public Page activeView;
 
         [ObservableProperty] public LoginPage loginPage;
@@ -30,9 +33,20 @@ namespace Sales_Manager.ViewModels
 
         [ObservableProperty] public Accounts accounts;
         [ObservableProperty] public AccountsViewModel accountsViewModel;
+        #endregion
 
+        #region services
+        UserService userService;
+        OrderService orderService;
+        CustomerService customerService;
+        ItemService itemService;
+        ProductService productService;
+        #endregion
+
+        internal DesignTimeDbContextFactory designTimeDbContextFactory { get; }
+
+        #region
         private bool _isLoggedIn = false;
-
         public bool IsLoggedIn
         {
             get { return _isLoggedIn; }
@@ -45,20 +59,39 @@ namespace Sales_Manager.ViewModels
                 }
             }
         }
+        #endregion
 
-        public MainWindowViewModel()
+        internal MainWindowViewModel(DesignTimeDbContextFactory factory)
         {
-            GOTO_login();
+            designTimeDbContextFactory = factory;
+            ResolveServices();
             ResolveProperties();
+
+            GOTO_login();
         }
 
+        #region resolvers
         private void ResolveProperties()
         {
-            LoginPage.SubmitButton.Click += Login;
+            LoginPageViewModel = new(userService);
+            LoginPageViewModel.LoggedIn += Login;
+
+
             NavigationSidebarViewModel = new();
             NavigationSidebarViewModel.Navigated += (e) => NavigateTo(e);
 
         }
+        private void ResolveServices()
+        {
+            userService = new(designTimeDbContextFactory);
+            orderService = new(designTimeDbContextFactory);
+            customerService = new(designTimeDbContextFactory);
+            itemService = new(designTimeDbContextFactory);
+            productService = new(designTimeDbContextFactory);
+        }
+        #endregion
+
+        #region navigators
         private void NavigateTo(int idx)
         {
             switch(idx)
@@ -79,7 +112,7 @@ namespace Sales_Manager.ViewModels
         }
         internal void GOTO_login()
         {
-            ActiveView = LoginPage = new LoginPage(LoginPageViewModel = new LoginPageViewModel());
+            ActiveView = LoginPage = new LoginPage(LoginPageViewModel);
         }
         internal void GOTO_Orders()
         {
@@ -95,9 +128,9 @@ namespace Sales_Manager.ViewModels
         }
         internal void GOTO_accounts()
         {
-            ActiveView = Accounts = new Accounts(AccountsViewModel = new AccountsViewModel());
+            ActiveView = Accounts = new Accounts(AccountsViewModel = new AccountsViewModel(userService));
         }
-
+        #endregion
 
         internal void UpdateLanguage(MetaData.Languages lang = MetaData.Languages.English)
         {
@@ -107,17 +140,10 @@ namespace Sales_Manager.ViewModels
             Application.Current.Resources.MergedDictionaries.Insert(0, langResource);
         }
 
-        internal void Login(object sender, RoutedEventArgs e) 
+        internal void Login() 
         {
-            if (LoginPage.usernameField.Text.Equals("admin") && LoginPage.passwordField.Password.Equals("admin"))
-            {
-                IsLoggedIn = true;
-                NavigationSidebarViewModel.NavigateToPage(1);
-            }
-            else
-            {
-                LoginPageViewModel.IsError = true;
-            }
+            IsLoggedIn = true;
+            NavigationSidebarViewModel.NavigateToPage(1);
         }
     }
 }
