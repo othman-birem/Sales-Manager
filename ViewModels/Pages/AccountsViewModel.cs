@@ -1,4 +1,5 @@
-﻿using Sales_Manager.Services;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Sales_Manager.Services;
 
 namespace Sales_Manager.ViewModels.Pages
 {
@@ -6,9 +7,17 @@ namespace Sales_Manager.ViewModels.Pages
     {
         private UserService userService;
 
+        [ObservableProperty] public List<User> users;
+
         public AccountsViewModel(UserService service)
         {
             userService = service;
+            ResolveProperties();
+        }
+
+        private void ResolveProperties()
+        {
+            Users = userService.Get();
         }
     }
 }

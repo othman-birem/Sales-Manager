@@ -12,7 +12,7 @@ using Sales_Manager.EntitiesManagement;
 namespace Sales_Manager.Migrations
 {
     [DbContext(typeof(SalesManagerContext))]
-    [Migration("20241213190740_initial")]
+    [Migration("20241215174448_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -25,17 +25,13 @@ namespace Sales_Manager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.CustomerBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -48,13 +44,9 @@ namespace Sales_Manager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("CustomerBase");
-
-                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.ItemBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +55,6 @@ namespace Sales_Manager.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
@@ -72,6 +63,9 @@ namespace Sales_Manager.Migrations
 
                     b.Property<long>("Quantity")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("discount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -82,7 +76,7 @@ namespace Sales_Manager.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.OrderBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,6 +91,14 @@ namespace Sales_Manager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<decimal>("NetTotal")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -104,7 +106,7 @@ namespace Sales_Manager.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.ProductBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,10 +115,6 @@ namespace Sales_Manager.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -137,13 +135,9 @@ namespace Sales_Manager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ProductBase");
-
-                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.UserBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,27 +158,9 @@ namespace Sales_Manager.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Sales_Manager.Models.Customer", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Item", b =>
                 {
-                    b.HasBaseType("Sales_Manager.EntitiesManagement.DTOs.CustomerBase");
-
-                    b.ToTable("Customers");
-
-                    b.HasDiscriminator().HasValue("Customer");
-                });
-
-            modelBuilder.Entity("Sales_Manager.Models.Product", b =>
-                {
-                    b.HasBaseType("Sales_Manager.EntitiesManagement.DTOs.ProductBase");
-
-                    b.ToTable("Products");
-
-                    b.HasDiscriminator().HasValue("Product");
-                });
-
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.ItemBase", b =>
-                {
-                    b.HasOne("Sales_Manager.EntitiesManagement.DTOs.OrderBase", "Order")
+                    b.HasOne("Sales_Manager.Models.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -201,7 +177,7 @@ namespace Sales_Manager.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Sales_Manager.EntitiesManagement.DTOs.OrderBase", b =>
+            modelBuilder.Entity("Sales_Manager.Models.Order", b =>
                 {
                     b.HasOne("Sales_Manager.Models.Customer", "Customer")
                         .WithMany()

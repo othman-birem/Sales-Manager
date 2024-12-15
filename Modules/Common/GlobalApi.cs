@@ -12,7 +12,7 @@ namespace Sales_Manager.Modules.Common
             return app.MainVM;
         }
 
-        internal static ResourceDictionary? LoadLanguageResourceDictionary(MetaData.Languages lang = MetaData.Languages.English)
+        internal static ResourceDictionary? LoadLanguageResourceDictionary(Languages lang = Languages.English)
         {
             try
             {

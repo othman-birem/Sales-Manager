@@ -10,16 +10,28 @@ namespace Sales_Manager
     public partial class App : Application
     {
         internal MainWindowViewModel MainVM { get; private set; }
+        internal AppConfiguration config { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
+            config = new AppConfiguration();
+            config.Load();
+
             DesignTimeDbContextFactory factory = new();
             MainVM = new MainWindowViewModel(factory);
+
             MainWindow win = new(MainVM);
+            config.SetState(win);
             MainWindow = win;
             win.Show();
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            config?.Save();
+
+            base.OnExit(e);
         }
     }
 

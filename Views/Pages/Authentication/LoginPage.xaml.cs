@@ -1,11 +1,9 @@
 ﻿using Sales_Manager.Models.Common;
-using Sales_Manager.Modules.Common;
 using Sales_Manager.ViewModels.Pages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace Sales_Manager.Views.Pages.Authentication
 {
@@ -18,11 +16,12 @@ namespace Sales_Manager.Views.Pages.Authentication
         {
             InitializeComponent();
             DataContext = vm;
+            usernameField.Focus();
         }
 
         public void KeyPressed(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) { SubmitButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent)); }
+            if (e.Key == Key.Enter) { SubmitButton.Command.Execute(null); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,7 +30,7 @@ namespace Sales_Manager.Views.Pages.Authentication
         }
         private void LangBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GlobalApi.GetCurrentMainWindowViewModel()?.UpdateLanguage((MetaData.Languages)LangBox.SelectedIndex);
+            GetCurrentMainWindowViewModel()?.UpdateLanguage((Languages)LangBox.SelectedIndex);
         }
     }
 }

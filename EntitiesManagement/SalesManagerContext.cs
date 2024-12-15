@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sales_Manager.Models;
 
 namespace Sales_Manager.EntitiesManagement
 {
@@ -6,11 +7,11 @@ namespace Sales_Manager.EntitiesManagement
     {
         public SalesManagerContext(DbContextOptions<SalesManagerContext> options) : base(options) { }
 
-        public DbSet<OrderBase> Orders { get; set; }
-        public DbSet<UserBase> Users { get; set; }
-        public DbSet<ProductBase> Products { get; set; }
-        public DbSet<CustomerBase> Customers { get; set; }
-        public DbSet<ItemBase> Items { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

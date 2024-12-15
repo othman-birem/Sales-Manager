@@ -1,7 +1,7 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sales_Manager.Services;
+using System.Windows;
 
 namespace Sales_Manager.ViewModels.Pages
 {
@@ -26,6 +26,8 @@ namespace Sales_Manager.ViewModels.Pages
         private UserService _userService;
 
         public event Action LoggedIn;
+
+        [ObservableProperty] public int lang;
 
         public LoginPageViewModel(UserService service)
         {

@@ -1,5 +1,6 @@
 ﻿using Sales_Manager.ViewModels.Pages;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace Sales_Manager.Views.Pages.Workspace
 {

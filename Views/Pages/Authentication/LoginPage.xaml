@@ -60,10 +60,10 @@
                      Margin="5,0" FontSize="14"
                      KeyDown="KeyPressed" Text="{Binding Name, Mode=TwoWay}"
                      Width="240" />
+
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"
                       Text="Password"
                       Margin="5,0" FontSize="16" Grid.Row="2"/>
-            
             <TextBox Name="passwordTxtBox" Grid.Column="1" Grid.Row="2"
                      VerticalAlignment="Center" HorizontalAlignment="Left"
                      Margin="5,0" FontSize="14"
@@ -87,8 +87,9 @@
       </Border>
       <ComboBox Grid.Row="1" Name="LangBox" Margin="15 5"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                SelectionChanged="LangBox_SelectionChanged">
-         <ComboBoxItem Content="English" IsSelected="True"/>
+                SelectionChanged="LangBox_SelectionChanged"
+                SelectedIndex="{Binding Lang, Mode=TwoWay}">
+         <ComboBoxItem Content="English"/>
          <ComboBoxItem Content="Francais"/>
       </ComboBox>
    </Grid>

@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Sales_Manager.EntitiesManagement;
-using Sales_Manager.Models.Common;
-using Sales_Manager.Modules.Common;
 using Sales_Manager.Services;
 using Sales_Manager.ViewModels.Navigation;
 using Sales_Manager.ViewModels.Pages;
@@ -71,7 +69,7 @@ namespace Sales_Manager.ViewModels
         }
 
         #region resolvers
-        private void ResolveProperties()
+        void ResolveProperties()
         {
             LoginPageViewModel = new(userService);
             LoginPageViewModel.LoggedIn += Login;
@@ -116,11 +114,11 @@ namespace Sales_Manager.ViewModels
         }
         internal void GOTO_Orders()
         {
-            ActiveView = Orders = new Orders(OrdersViewModel = new OrdersViewModel());
+            ActiveView = Orders = new Orders(OrdersViewModel = new OrdersViewModel(orderService));
         }
         internal void GOTO_customers()
         {
-            ActiveView = Customers = new Customers(CustomersViewModel = new CustomersViewModel());
+            ActiveView = Customers = new Customers(CustomersViewModel = new CustomersViewModel(customerService));
         }
         internal void GOTO_settings()
         {
@@ -132,9 +130,9 @@ namespace Sales_Manager.ViewModels
         }
         #endregion
 
-        internal void UpdateLanguage(MetaData.Languages lang = MetaData.Languages.English)
+        internal void UpdateLanguage(Languages lang = Languages.English)
         {
-            ResourceDictionary? langResource = GlobalApi.LoadLanguageResourceDictionary(lang) ?? GlobalApi.LoadLanguageResourceDictionary();
+            ResourceDictionary? langResource = LoadLanguageResourceDictionary(lang) ?? LoadLanguageResourceDictionary();
 
             Application.Current.Resources.MergedDictionaries.RemoveAt(0);
             Application.Current.Resources.MergedDictionaries.Insert(0, langResource);

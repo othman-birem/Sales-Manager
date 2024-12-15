@@ -40,7 +40,10 @@ namespace Sales_Manager.Services
 
             return user != null;
         }
-
+        internal List<User> Get()
+        {
+            return _context.Users.ToList();
+        }
 
 
         public static string Hash(string raw_password)

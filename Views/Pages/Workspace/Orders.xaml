@@ -21,8 +21,7 @@
             <StackPanel Orientation="Horizontal" Margin="10"
                   VerticalAlignment="Top" HorizontalAlignment="Left">
                <Image Height="30" Width="30" VerticalAlignment="Stretch" 
-                      Stretch="Uniform" Margin="10,0"
-                      Source="{Binding orderIcon}"/>
+                      Stretch="Uniform" Margin="10,0"/>
                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
                           Text="Orders" FontSize="32" FontWeight="SemiBold"/>
             </StackPanel>
@@ -36,9 +35,11 @@
                     Margin="0,0,20,0"
                     VerticalAlignment="Center" HorizontalAlignment="Right">
                <StackPanel Orientation="Horizontal">
-                  <Image Source="/Assets/Tools/plus.png" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15"/>
-                  <TextBlock Text="Add Order" FontSize="15" FontWeight="DemiBold"
-                             Margin="7 0 0 0" VerticalAlignment="Center"/>
+                  <TextBlock FontSize="15" FontWeight="DemiBold"
+                             Margin="7 0 0 0" VerticalAlignment="Center">
+                     <Image Source="/Assets/Tools/plus.png" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15"/>
+                     <Run Text="Add Order"/>
+                  </TextBlock>
                </StackPanel>
             </Button>
          </Grid>
@@ -53,7 +54,8 @@
                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                 CellStyle="{DynamicResource DataGridCellStyle1}" 
                 RowStyle="{DynamicResource DataGridRowStyle1}"
-                x:Name="Orders_DataGrid" Margin="0,20,10,0">
+                x:Name="Orders_DataGrid" Margin="0,20,10,0"
+                ItemsSource="{Binding Orders}">
          <DataGrid.Columns>
             <DataGridTemplateColumn x:Name="Operation_btns" Header="Operations" IsReadOnly="True" 
                                      MinWidth="150" Width="auto">
