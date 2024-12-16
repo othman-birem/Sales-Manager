@@ -11,7 +11,16 @@
    <DockPanel>
       
       <StackPanel VerticalAlignment="Top" DockPanel.Dock="Top">
-         <RadioButton x:Name="OrdersButtons" GroupName="NavigationMenuGroup"
+         <RadioButton x:Name="SalesButton" GroupName="NavigationMenuGroup"
+             Style="{StaticResource NavigationButton}" Tag="POS">
+            <i:Interaction.Triggers>
+               <i:EventTrigger EventName="Checked">
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="1" />
+               </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Assets/Logo/SalesManagerIcon.png" Stretch="Uniform"/>
+         </RadioButton>
+         <RadioButton x:Name="OrdersButton" GroupName="NavigationMenuGroup"
                       Style="{StaticResource NavigationButton}" Tag="Orders">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">

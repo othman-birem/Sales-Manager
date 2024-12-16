@@ -40,6 +40,10 @@
          <Style BasedOn="{StaticResource comboBox_theme}" TargetType="ComboBox"/>
          <Style BasedOn="{StaticResource ComboBoxItem}" TargetType="ComboBoxItem"/>
          <Style BasedOn="{StaticResource RadioButton_theme}" TargetType="RadioButton"/>
+         <Style BasedOn="{StaticResource DataGridStyle1}" TargetType="DataGrid"/>
+         <Style BasedOn="{StaticResource DataGridColumnHeaderStyle1}" TargetType="DataGridColumnHeader"/>
+         <Style BasedOn="{StaticResource DataGridCellStyle1}" TargetType="DataGridCell"/>
+         <Style BasedOn="{StaticResource DataGridRowStyle1}" TargetType="DataGridRow"/>
       </ResourceDictionary>
    </Application.Resources>
 </Application>

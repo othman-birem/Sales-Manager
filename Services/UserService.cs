@@ -1,51 +1,43 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Sales_Manager.EntitiesManagement;
-using Sales_Manager.ViewModels.Navigation;
-using Sales_Manager.ViewModels.Pages;
-using Sales_Manager.Views.Pages.Authentication;
 using System.IO;
 using System.Security.Cryptography;
-using System.Windows;
+using System.Windows.Forms;
 
 namespace Sales_Manager.Services
 {
-    public class UserService
+    internal class UserService : ServiceBase, IService<User>
     {
-        private SalesManagerContext _context;
-
-        internal UserService(DesignTimeDbContextFactory factory)
+        internal UserService(DesignTimeDbContextFactory factory) : base(factory)
         {
-            _context = factory.CreateDbContext(args: null);
             INIT();
         }
-
-        private async void INIT()
+        public async Task<List<User>> GetAsync()
         {
-            if (!_context.Users.Any())
+            await Task.Delay(100);
+            return await _context.Users.ToListAsync();
+        }
+        public async Task Delete(int id)
+        {
+            var obj = await _context.Users.FindAsync(id);
+
+            if (obj != null)
             {
-                string data = File.ReadAllText("C:\\Users\\Othman\\Desktop\\Projects\\3-tier sales manager\\Sales Manager\\Services\\FakeData\\Users.json");
-                User[]? objs = JsonConvert.DeserializeObject<User[]>(data);
-
-                for (int i = 0; i < objs.Length; i++) { objs[i].Password = Hash(objs[i].Password); }
-
-                await _context.Users.AddRangeAsync(objs);
+                _context.Users.Remove(obj);
                 await _context.SaveChangesAsync();
             }
         }
-
-        internal async Task<bool> Login(string name, string password)
+        public void Update(User user)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Name.Equals(name) && a.Password.Equals(Hash(password)));
-
-            return user != null;
+            throw new NotImplementedException();
         }
-        internal List<User> Get()
+        public Task Add(User obj)
         {
-            return _context.Users.ToList();
+            throw new NotImplementedException();
         }
 
-
+        #region Helpers
         public static string Hash(string raw_password)
         {
             using (var sha = SHA512.Create())
@@ -59,5 +51,26 @@ namespace Sales_Manager.Services
                 return hash;
             }
         }
+        internal async Task<bool> Login(string name, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(a => a.Name.Equals(name) && a.Password.Equals(Hash(password)));
+
+            return user != null;
+        }
+        private async void INIT()
+        {
+            if (!_context.Users.Any())
+            {
+                string data = File.ReadAllText("C:\\Users\\Othman\\Desktop\\Projects\\3-tier sales manager\\Sales Manager\\Services\\FakeData\\Users.json");
+                User[]? objs = JsonConvert.DeserializeObject<User[]>(data);
+
+                for (int i = 0; i < objs.Length; i++) { objs[i].Password = Hash(objs[i].Password); }
+
+                await _context.Users.AddRangeAsync(objs);
+                await _context.SaveChangesAsync();
+            }
+        }
+        #endregion
+
     }
 }

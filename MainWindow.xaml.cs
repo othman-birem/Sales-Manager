@@ -28,15 +28,18 @@ namespace Sales_Manager
             switch (int.Parse(e.ToString()))
             {
                 case 1:
-                    navbar.OrdersButtons.IsChecked = true;
+                    navbar.SalesButton.IsChecked = true;
                     break;
                 case 2:
-                    navbar.CustomersButton.IsChecked = true;
+                    navbar.OrdersButton.IsChecked = true;
                     break;
                 case 3:
-                    navbar.AccountsButton.IsChecked = true;
+                    navbar.CustomersButton.IsChecked = true;
                     break;
                 case 4:
+                    navbar.AccountsButton.IsChecked = true;
+                    break;
+                case 5:
                     navbar.SettingButton.IsChecked = true;
                     break;
             }

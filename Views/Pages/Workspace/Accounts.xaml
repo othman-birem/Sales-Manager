@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Workspace"
+      xmlns:Loader="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Accounts">
@@ -31,18 +32,26 @@
                        Text="Welcome to the Accounts Management space"
                        FontSize="17" FontWeight="Light" 
                        Foreground="{Binding headerColor}"/>
-            <Button x:Name="add_button" 
+
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
+            VerticalAlignment="Center" HorizontalAlignment="Right">
+               <Loader:LoadingSpinner Name="Spinner" Margin="10 0"
+              VerticalAlignment="Center"
+              IsLoading="{Binding IsBusy, FallbackValue=True}"
+              Thickness="2" Diameter="30" Cap="Round"/>
+               <Button x:Name="add_button" 
                     Style="{StaticResource PrimaryButton}" 
                     Margin="0,0,20,0"
                     VerticalAlignment="Center" HorizontalAlignment="Right">
-               <StackPanel Orientation="Horizontal">
-                  <TextBlock FontSize="15" FontWeight="DemiBold"
+                  <StackPanel Orientation="Horizontal">
+                     <TextBlock FontSize="15" FontWeight="DemiBold"
                              Margin="7 0 0 0" VerticalAlignment="Center">
                      <Image Source="/Assets/Tools/plus.png" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15"/>
                      <Run Text="Add Account"/>
-                  </TextBlock>
-               </StackPanel>
-            </Button>
+                     </TextBlock>
+                  </StackPanel>
+               </Button>
+            </StackPanel>
          </Grid>
          <Border.Effect>
             <DropShadowEffect BlurRadius="10" Direction="260" RenderingBias="Quality"
@@ -51,14 +60,11 @@
       </Border>
 
       <DataGrid x:Name="MyDataGrid" Grid.Row="2" Width="auto"
-                Style="{DynamicResource DataGridStyle1}" 
-                ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                CellStyle="{DynamicResource DataGridCellStyle1}" 
-                RowStyle="{DynamicResource DataGridRowStyle1}"
                 Margin="0,20,10,0" 
                 ItemsSource="{Binding Users}">
          <DataGrid.Columns>
-            <DataGridTextColumn x:Name="NameColumn" Header="Name" Binding="{Binding Name}"/>
+            <DataGridTextColumn x:Name="NameColumn" Header="Name" Width="*"
+                                Binding="{Binding Name}"/>
             
             <DataGridTemplateColumn x:Name="Operation_btns" Header="Operations"
                                     IsReadOnly="True" 

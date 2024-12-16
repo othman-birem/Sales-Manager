@@ -1,17 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Models;
 using System.IO;
 
 namespace Sales_Manager.Services
 {
-    public class OrderService
+    internal class OrderService : ServiceBase, IService<Order>
     {
-        private SalesManagerContext _context;
-
-        internal OrderService(DesignTimeDbContextFactory factory)
+        internal OrderService(DesignTimeDbContextFactory factory) : base(factory)
         {
-            _context = factory.CreateDbContext(null);
             //INIT();
         }
 
@@ -26,10 +24,25 @@ namespace Sales_Manager.Services
                 await _context.SaveChangesAsync();
             }
         }
-        public List<Order> Get()
+        public async Task<List<Order>> GetAsync()
         {
-            var list = _context.Orders.AsEnumerable();
-            return list.OfType<Order>().ToList();
+            await Task.Delay(100);
+            return await _context.Orders.ToListAsync();
+        }
+
+        public Task Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Order entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Add(Order obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

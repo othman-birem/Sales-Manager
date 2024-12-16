@@ -12,7 +12,7 @@ namespace Sales_Manager.ViewModels.Pages
         private CustomerService customerService;
 
         [ObservableProperty] public List<Customer> customers;
-        public CustomersViewModel(CustomerService service)
+        internal CustomersViewModel(CustomerService service)
         {
             customerService = service;
             ResolveProperties();
@@ -33,7 +33,7 @@ namespace Sales_Manager.ViewModels.Pages
             }
         }
         [RelayCommand]
-        public async void Delete(object id)
+        public async Task Delete(object id)
         {
             MessageBoxResult result = MessageBox.Show(
                              "Are you sure you want to delete this item?",
@@ -48,9 +48,11 @@ namespace Sales_Manager.ViewModels.Pages
                 IsBusy = false;
             }
         }
-        public void ResolveProperties()
+        public async void ResolveProperties()
         {
-            Customers = customerService.Get();
+            IsBusy = true;
+            Customers = await customerService.GetAsync();
+            IsBusy = false;
         }
     }
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Authentication"
       xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
+      xmlns:Loader="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage" Background="#E4F0F6">
@@ -64,7 +65,7 @@
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"
                       Text="Password"
                       Margin="5,0" FontSize="16" Grid.Row="2"/>
-            <TextBox Name="passwordTxtBox" Grid.Column="1" Grid.Row="2"
+            <TextBox Name="PasswordBox" Grid.Column="1" Grid.Row="2"
                      VerticalAlignment="Center" HorizontalAlignment="Left"
                      Margin="5,0" FontSize="14"
                      Width="240" KeyDown="KeyPressed"
@@ -74,14 +75,19 @@
                        HorizontalAlignment="Center" VerticalAlignment="Top"
                        Foreground="Red"
                        Visibility="{Binding IsError, Converter={StaticResource BooleanToVisibilityConverter}}"
-                       Text="The username or password are wrong"/>
+                       Text="Wrong username or password!"/>
 
-            <Button x:Name="SubmitButton" Content="{DynamicResource ToolString1}"
-                    HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-                    Grid.Column="1" Grid.Row="3"
-                    Margin="15, 10" Command="{Binding LoginCommand}"
-                    Style="{StaticResource PrimaryButton}"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"/>
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom">
+               <Loader:LoadingSpinner Name="Spinner" Margin="10 0"
+                                      VerticalAlignment="Center"
+                                      IsLoading="{Binding IsBusy, FallbackValue=True}"
+                                      Thickness="2" Diameter="30" Cap="Round"/>
+               <Button x:Name="SubmitButton" Content="{DynamicResource ToolString1}"
+                       Margin="15, 10" Command="{Binding LoginCommand}"
+                       Style="{StaticResource PrimaryButton}"
+                       IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"/>
+            </StackPanel>
 
          </Grid>
       </Border>

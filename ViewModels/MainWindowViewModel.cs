@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Web.WebView2.Core;
 using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Services;
 using Sales_Manager.ViewModels.Navigation;
@@ -31,6 +32,9 @@ namespace Sales_Manager.ViewModels
 
         [ObservableProperty] public Accounts accounts;
         [ObservableProperty] public AccountsViewModel accountsViewModel;
+
+        [ObservableProperty] public Sales sales;
+        [ObservableProperty] public SalesViewModel salesViewModel;
         #endregion
 
         #region services
@@ -41,7 +45,7 @@ namespace Sales_Manager.ViewModels
         ProductService productService;
         #endregion
 
-        internal DesignTimeDbContextFactory designTimeDbContextFactory { get; }
+        internal DesignTimeDbContextFactory designTimeDbContextFactory { get; init; }
 
         #region
         private bool _isLoggedIn = false;
@@ -95,15 +99,18 @@ namespace Sales_Manager.ViewModels
             switch(idx)
             {
                 case 1:
-                    GOTO_Orders();
+                    GOTO_sales();
                     break;
                 case 2:
-                    GOTO_customers();
+                    GOTO_Orders();
                     break;
                 case 3:
-                    GOTO_accounts();
+                    GOTO_customers();
                     break;
                 case 4:
+                    GOTO_accounts();
+                    break;
+                case 5:
                     GOTO_settings();
                     break;
             }
@@ -127,6 +134,10 @@ namespace Sales_Manager.ViewModels
         internal void GOTO_accounts()
         {
             ActiveView = Accounts = new Accounts(AccountsViewModel = new AccountsViewModel(userService));
+        }
+        internal void GOTO_sales()
+        {
+            ActiveView = Sales = new Sales(SalesViewModel = new SalesViewModel(orderService, productService, itemService));
         }
         #endregion
 

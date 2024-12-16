@@ -10,14 +10,18 @@ namespace Sales_Manager.ViewModels.Pages
 
         [ObservableProperty] public List<Order> orders;
 
-        public OrdersViewModel(OrderService service)
+        #region
+        internal OrdersViewModel(OrderService service)
         {
             this.orderService = service;
         }
+        #endregion
 
-        public void ResolveProperties()
+        public async Task ResolveProperties()
         {
-            Orders = orderService.Get();
+            IsBusy = true;
+            Orders = await orderService.GetAsync();
+            IsBusy = false;
         }
     }
 }

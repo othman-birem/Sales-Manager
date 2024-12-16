@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Assets\Controls\view.png" />
     <None Remove="Assets\Controls\view_checked.png" />
+    <None Remove="Assets\Logo\SalesManagerIcon.png" />
     <None Remove="Assets\Sections\accounts.png" />
     <None Remove="Assets\Sections\cart.png" />
     <None Remove="Assets\Sections\people.png" />
@@ -46,6 +47,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="LoadingSpinner.WPF" Version="1.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.20" />
@@ -62,6 +64,7 @@
   <ItemGroup>
     <Resource Include="Assets\Controls\view.png" />
     <Resource Include="Assets\Controls\view_checked.png" />
+    <Resource Include="Assets\Logo\SalesManagerIcon.png" />
     <Resource Include="Assets\Sections\accounts.png" />
     <Resource Include="Assets\Sections\cart.png" />
     <Resource Include="Assets\Sections\people.png" />

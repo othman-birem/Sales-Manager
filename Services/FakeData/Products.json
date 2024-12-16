@@ -1,6 +1,72 @@
 [
   {
-    "Name": "example customer",
-    "Phone": "0654 21 98 65"
+    "Name": "Product A",
+    "Description": "Description for Product A",
+    "Price": 12.50,
+    "StockQuantity": 100,
+    "UnitMetric": 0
+  },
+  {
+    "Name": "Product B",
+    "Description": "Description for Product B",
+    "Price": 20.99,
+    "StockQuantity": 150,
+    "UnitMetric": 1
+  },
+  {
+    "Name": "Product C",
+    "Description": "Description for Product C",
+    "Price": 5.75,
+    "StockQuantity": 200,
+    "UnitMetric": 2
+  },
+  {
+    "Name": "Product D",
+    "Description": "Description for Product D",
+    "Price": 9.99,
+    "StockQuantity": 80,
+    "UnitMetric": 0
+  },
+  {
+    "Name": "Product E",
+    "Description": "Description for Product E",
+    "Price": 14.25,
+    "StockQuantity": 60,
+    "UnitMetric": 1
+  },
+  {
+    "Name": "Product F",
+    "Description": "Description for Product F",
+    "Price": 25.00,
+    "StockQuantity": 45,
+    "UnitMetric": 2
+  },
+  {
+    "Name": "Product G",
+    "Description": "Description for Product G",
+    "Price": 30.50,
+    "StockQuantity": 120,
+    "UnitMetric": 0
+  },
+  {
+    "Name": "Product H",
+    "Description": "Description for Product H",
+    "Price": 8.40,
+    "StockQuantity": 90,
+    "UnitMetric": 1
+  },
+  {
+    "Name": "Product I",
+    "Description": "Description for Product I",
+    "Price": 3.75,
+    "StockQuantity": 300,
+    "UnitMetric": 2
+  },
+  {
+    "Name": "Product J",
+    "Description": "Description for Product J",
+    "Price": 18.99,
+    "StockQuantity": 50,
+    "UnitMetric": 0
   }
 ]

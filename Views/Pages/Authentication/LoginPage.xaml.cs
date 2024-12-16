@@ -21,7 +21,11 @@ namespace Sales_Manager.Views.Pages.Authentication
 
         public void KeyPressed(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) { SubmitButton.Command.Execute(null); }
+            if (e.Key == Key.Enter)
+            {
+                PasswordBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                SubmitButton.Command.Execute(null); 
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

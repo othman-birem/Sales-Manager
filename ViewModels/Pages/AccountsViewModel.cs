@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Sales_Manager.Services;
+using System.Windows;
 
 namespace Sales_Manager.ViewModels.Pages
 {
@@ -9,15 +11,32 @@ namespace Sales_Manager.ViewModels.Pages
 
         [ObservableProperty] public List<User> users;
 
-        public AccountsViewModel(UserService service)
+        internal AccountsViewModel(UserService service)
         {
             userService = service;
             ResolveProperties();
         }
 
-        private void ResolveProperties()
+        private async void ResolveProperties()
         {
-            Users = userService.Get();
+            Users = await userService.GetAsync();
+        }
+
+        [RelayCommand]
+        public async Task Delete(object id)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                 "Are you sure you want to delete this item?",
+                 "Confirmation",
+                 MessageBoxButton.YesNo,
+                 MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                IsBusy = true;
+                await userService.Delete(int.Parse(((User)id).Id.ToString()));
+                ResolveProperties();
+                IsBusy = false;
+            }
         }
     }
 }
