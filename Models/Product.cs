@@ -26,5 +26,10 @@ namespace Sales_Manager.Models
         [Required]
         [EnumDataType(typeof(UnitMetrics))]
         public UnitMetrics UnitMetric { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

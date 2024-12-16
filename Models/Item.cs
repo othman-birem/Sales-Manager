@@ -23,7 +23,7 @@ namespace Sales_Manager.Models
         public Product Product { get; set; }
 
         [Required]
-        public uint Quantity { get; set; } = 0;
+        public uint Quantity { get; set; } = 1;
         [Required]
         public int discount { get; set; } = 0;
         internal decimal Total { get { return Product.Price * Quantity; } }

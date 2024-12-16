@@ -18,13 +18,13 @@
                   <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="1" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
-            <Image Source="/Assets/Logo/SalesManagerIcon.png" Stretch="Uniform"/>
+            <Image Source="/Assets/Sections/pos-bill.png" Stretch="Uniform"/>
          </RadioButton>
          <RadioButton x:Name="OrdersButton" GroupName="NavigationMenuGroup"
                       Style="{StaticResource NavigationButton}" Tag="Orders">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">
-                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="1" />
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="2" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Source="/Assets/Sections/cart.png" Stretch="Uniform"/>
@@ -33,7 +33,7 @@
              Style="{StaticResource NavigationButton}" Tag="Clients">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">
-                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="2" />
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="3" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Source="/Assets/Sections/people.png" Stretch="Uniform"/>
@@ -42,7 +42,7 @@
                       Style="{StaticResource NavigationButton}" Tag="Accounts">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">
-                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="3" />
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="4" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Source="/Assets/Sections/accounts.png" Stretch="Uniform"/>
@@ -55,7 +55,7 @@
              Style="{StaticResource NavigationButton}" Tag="Settings">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">
-                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="4" />
+                  <i:InvokeCommandAction Command="{Binding NavigateToPageCommand}" CommandParameter="5" />
                </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Source="/Assets/Tools/settings.png" Stretch="Uniform"/>

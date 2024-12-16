@@ -17,6 +17,7 @@
     <None Remove="Assets\Sections\accounts.png" />
     <None Remove="Assets\Sections\cart.png" />
     <None Remove="Assets\Sections\people.png" />
+    <None Remove="Assets\Sections\pos-bill.png" />
     <None Remove="Assets\Tools\cancelIcon.png" />
     <None Remove="Assets\Tools\pencil.png" />
     <None Remove="Assets\Tools\plus.png" />
@@ -68,6 +69,7 @@
     <Resource Include="Assets\Sections\accounts.png" />
     <Resource Include="Assets\Sections\cart.png" />
     <Resource Include="Assets\Sections\people.png" />
+    <Resource Include="Assets\Sections\pos-bill.png" />
     <Resource Include="Assets\Tools\cancelIcon.png" />
     <Resource Include="Assets\Tools\pencil.png" />
     <Resource Include="Assets\Tools\plus.png" />

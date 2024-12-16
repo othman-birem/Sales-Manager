@@ -14,5 +14,10 @@ namespace Sales_Manager.Models
 
         [Required]
         public string Phone { get; set; } = string.Empty;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

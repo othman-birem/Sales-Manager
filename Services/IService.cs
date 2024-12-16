@@ -18,7 +18,7 @@ namespace Sales_Manager.Services
         /// Deletes an entity by its identifier.
         /// </summary>
         /// <param name="id">The unique identifier of the entity.</param>
-        Task Add(T obj);
+        Task<T> Add(T obj);
 
         /// <summary>
         /// Retrieves an entity asynchronously by its identifier.
@@ -26,6 +26,13 @@ namespace Sales_Manager.Services
         /// <param name="id">The unique identifier of the entity.</param>
         /// <returns>A Task that represents the asynchronous operation. The task result contains the entity.</returns>
         Task<List<T>> GetAsync();
+
+        /// <summary>
+        /// Retrieves an entity asynchronously by its identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the entity.</param>
+        /// <returns>A Task that represents the asynchronous operation. The task result contains the entity.</returns>
+        List<T> Get();
 
         /// <summary>
         /// Updates an existing entity.

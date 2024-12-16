@@ -16,7 +16,11 @@ namespace Sales_Manager.Services
         public async Task<List<User>> GetAsync()
         {
             await Task.Delay(100);
-            return await _context.Users.ToListAsync();
+            return await _context.Users.AsNoTracking().ToListAsync();
+        }
+        public List<User> Get()
+        {
+            return _context.Users.ToList();
         }
         public async Task Delete(int id)
         {
@@ -32,7 +36,7 @@ namespace Sales_Manager.Services
         {
             throw new NotImplementedException();
         }
-        public Task Add(User obj)
+        public Task<User> Add(User obj)
         {
             throw new NotImplementedException();
         }

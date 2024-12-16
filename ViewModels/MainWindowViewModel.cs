@@ -137,7 +137,7 @@ namespace Sales_Manager.ViewModels
         }
         internal void GOTO_sales()
         {
-            ActiveView = Sales = new Sales(SalesViewModel = new SalesViewModel(orderService, productService, itemService));
+            ActiveView = Sales = new Sales(SalesViewModel = new SalesViewModel(orderService, productService, customerService, itemService));
         }
         #endregion
 

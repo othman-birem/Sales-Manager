@@ -1,4 +1,5 @@
-﻿using Sales_Manager.EntitiesManagement;
+﻿using Microsoft.EntityFrameworkCore;
+using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Models;
 
 namespace Sales_Manager.Services
@@ -10,7 +11,7 @@ namespace Sales_Manager.Services
 
         }
 
-        public Task Add(Item obj)
+        public Task<Item> Add(Item obj)
         {
             throw new NotImplementedException();
         }
@@ -20,14 +21,24 @@ namespace Sales_Manager.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Item>> GetAsync()
+        public async Task<List<Item>> GetAsync()
         {
-            throw new NotImplementedException();
+            await Task.Delay(100);
+            return await _context.Items.AsNoTracking().ToListAsync();
+        }
+        public List<Item> Get()
+        {
+            return _context.Items.ToList();
         }
 
         public void Update(Item entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task AddRangeAsync(IEnumerable<Item> items)
+        {
+            await _context.Items.AddRangeAsync(items);
         }
     }
 }

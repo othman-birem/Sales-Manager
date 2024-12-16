@@ -17,9 +17,9 @@ namespace Sales_Manager.ViewModels.Pages
             ResolveProperties();
         }
 
-        private async void ResolveProperties()
+        private void ResolveProperties()
         {
-            Users = await userService.GetAsync();
+            Users = userService.Get();
         }
 
         [RelayCommand]

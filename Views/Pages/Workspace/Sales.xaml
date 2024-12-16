@@ -4,89 +4,94 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Workspace"
+      xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Sales">
-
+   <Page.Resources>
+      <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+   </Page.Resources>
    <Grid>
-      <!-- Header Section -->
       <Grid.RowDefinitions>
          <RowDefinition Height="Auto"/>
          <RowDefinition Height="*"/>
          <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
-      <!-- Header with Order Creation Controls -->
       <Border Grid.Row="0" Background="#F0F0F0" Padding="10">
          <StackPanel Orientation="Horizontal">
-            <!-- Customer Selection -->
             <ComboBox x:Name="CustomerComboBox" 
-                   Width="250" 
-                   Margin="0,0,10,0" 
-                   DisplayMemberPath="Name" 
-                   SelectedValuePath="Id"
-                   Tag="Select Customer"/>
+                      Width="250" Margin="0,0,10,0" 
+                      DisplayMemberPath="Name" SelectedValuePath="Id" 
+                      ItemsSource="{Binding Customers}"
+                      Tag="Select Customer"
+                      SelectedValue="{Binding SelectedCustomer}"/>
 
-            <!-- Total Discount Percentage -->
             <TextBox Width="100" 
                   Margin="0,0,10,0" 
                   Text="{Binding TotalDiscountPercentage}" 
                   PreviewTextInput="NumericValidation"
                   Tag="Total Discount %"/>
 
-            <!-- New Order Button -->
             <Button Content="New Order" 
                  Style="{StaticResource PrimaryButton}"
                  Command="{Binding NewOrderCommand}"/>
          </StackPanel>
       </Border>
 
-      <!-- Order Details Grid -->
       <Grid Grid.Row="1" Margin="10">
          <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
          </Grid.RowDefinitions>
 
-         <!-- Order Items DataGrid -->
-         <DataGrid x:Name="OrderItemsDataGrid" 
-               Grid.Row="0" 
-               ItemsSource="{Binding OrderItems}"
-               AllowDrop="True"
-               CanUserReorderColumns="True">
+         <TextBlock Panel.ZIndex="-2"
+                    Text="Please make an order."
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+         <DataGrid 
+            x:Name="OrderItemsDataGrid" Grid.Row="0"
+            Visibility="{Binding HasOrder, Converter={StaticResource BoolToVisibilityConverter}}"
+            Background="White"
+            ItemsSource="{Binding OrderItemViewModels}"
+            AllowDrop="True" IsReadOnly="False"
+            CanUserReorderColumns="True">
             <DataGrid.Columns>
-               <DataGridTemplateColumn Header="Product">
+
+               <DataGridTextColumn Header="Id" IsReadOnly="True"
+                                 Binding="{Binding item.Id}"/>
+               
+               <DataGridTemplateColumn Header="Product" Width="150">
                   <DataGridTemplateColumn.CellTemplate>
                      <DataTemplate>
-                        <ComboBox ItemsSource="{Binding DataContext.Products, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                   DisplayMemberPath="Name"
-                                   SelectedValuePath="Id"
-                                   SelectedValue="{Binding ProductId}"/>
+                        <ComboBox MinWidth="100" MaxWidth="150"
+                           ItemsSource="{Binding DataContext.Products, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                           DisplayMemberPath="Name"
+                           SelectedValuePath="Id"
+                           SelectedValue="{Binding DataContext.ProductId, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
                      </DataTemplate>
                   </DataGridTemplateColumn.CellTemplate>
                </DataGridTemplateColumn>
 
-               <DataGridTextColumn Header="Quantity" 
-                                 Binding="{Binding Quantity}"/>
+               <DataGridTextColumn Header="Quantity"
+                                 Binding="{Binding Quantity, Mode=TwoWay}"/>
 
-               <DataGridTextColumn Header="Unit Price" 
-                                 Binding="{Binding UnitPrice}"/>
+               <DataGridTextColumn Header="Discount %" MaxWidth="250" MinWidth="150"
+                                 Binding="{Binding Discount, Mode=TwoWay}"/>
 
-               <DataGridTextColumn Header="Discount %" 
-                                 Binding="{Binding DiscountPercentage}"/>
+               <DataGridTextColumn Header="Unit Price" Width="*" IsReadOnly="True"
+                                 Binding="{Binding UnitPrice, StringFormat={}{0:C}}"/>
 
-               <DataGridTextColumn Header="Net Amount" 
-                                 Binding="{Binding NetAmount, Mode=OneWay}"
+               <DataGridTextColumn Header="Net Amount" Width="*"
+                                 Binding="{Binding NetTotal, StringFormat={}{0:C}}"
                                  IsReadOnly="True"/>
 
-               <DataGridTemplateColumn Header="Actions">
+               <DataGridTemplateColumn Header="Actions" MinWidth="70" Width="*">
                   <DataGridTemplateColumn.CellTemplate>
                      <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                           <Button Content="Remove" 
-                                     Command="{Binding DataContext.RemoveOrderItemCommand, 
-                                              RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                     CommandParameter="{Binding}"/>
+                           <Button Content="Remove" Style="{StaticResource FuturisticButton}"
+                                   Command="{Binding DataContext.RemoveOrderItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                   CommandParameter="{Binding}"/>
                         </StackPanel>
                      </DataTemplate>
                   </DataGridTemplateColumn.CellTemplate>
@@ -94,11 +99,10 @@
             </DataGrid.Columns>
          </DataGrid>
 
-         <!-- Summary Section -->
          <Border Grid.Row="1" Background="#F5F5F5" Padding="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                <TextBlock Text="Total Amount:" Margin="0,0,10,0" FontWeight="Bold"/>
-               <TextBlock Text="{Binding TotalAmount, StringFormat=\{0:C\}}" FontWeight="Bold"/>
+               <TextBlock Text="{Binding Total, StringFormat=\{0:C\}}" FontWeight="Bold"/>
 
                <TextBlock Text="Net Total:" Margin="10,0,10,0" FontWeight="Bold"/>
                <TextBlock Text="{Binding NetTotal, StringFormat=\{0:C\}}" FontWeight="Bold"/>
@@ -106,7 +110,6 @@
          </Border>
       </Grid>
 
-      <!-- Action Buttons -->
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
          <Button Content="Add Item" 
              Command="{Binding AddOrderItemCommand}"

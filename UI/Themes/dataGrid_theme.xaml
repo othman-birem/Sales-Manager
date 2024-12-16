@@ -46,7 +46,6 @@
       <Setter Property="FontSize" Value="13" />
       <Setter Property="GridLinesVisibility" Value="None" />
       <Setter Property="ColumnWidth" Value="*" />
-      <Setter Property="IsReadOnly" Value="True"/>
       <Setter Property="HorizontalAlignment" Value="Stretch"/>
 
       <Setter Property="Template">

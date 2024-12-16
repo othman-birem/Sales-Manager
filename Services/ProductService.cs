@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Models;
 using System.IO;
@@ -12,7 +13,7 @@ namespace Sales_Manager.Services
             INIT();
         }
 
-        public Task Add(Product obj)
+        public Task<Product> Add(Product obj)
         {
             throw new NotImplementedException();
         }
@@ -22,9 +23,15 @@ namespace Sales_Manager.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Product>> GetAsync()
+        public async Task<List<Product>> GetAsync()
         {
-            throw new NotImplementedException();
+            await Task.Delay(100);
+            return await _context.Products.AsNoTracking().ToListAsync();
+        }
+
+        public List<Product> Get()
+        {
+            return _context.Products.ToList();
         }
 
         public void Update(Product entity)
@@ -33,9 +40,9 @@ namespace Sales_Manager.Services
         }
 
         #region helpers
-        private async void INIT()
+        private async Task INIT()
         {
-            if (!_context.Products.Any())
+            if (!_context.Products.AnyAsync().Result)
             {
                 string data = File.ReadAllText("C:\\Users\\Othman\\Desktop\\Projects\\3-tier sales manager\\Sales Manager\\Services\\FakeData\\Products.json");
                 Product[]? objs = JsonConvert.DeserializeObject<Product[]>(data);
