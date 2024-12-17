@@ -62,7 +62,7 @@
          </Border.Effect>
       </Border>
 
-      <DataGrid Grid.Row="2" Width="auto"
+      <DataGrid Grid.Row="2" Width="auto" IsReadOnly="True"
                 x:Name="Orders_DataGrid" Margin="10,20,10,0"
                 ItemsSource="{Binding Customers}">
          <DataGrid.Columns>

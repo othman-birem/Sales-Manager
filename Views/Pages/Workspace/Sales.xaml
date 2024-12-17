@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Workspace"
       xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" FontFamily="/Common/UI/Fonts/#cabin"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Sales">
    <Page.Resources>
@@ -27,10 +27,13 @@
                       Tag="Select Customer"
                       SelectedValue="{Binding SelectedCustomer}"/>
 
-            <TextBox Width="100" 
-                  Margin="0,0,10,0" 
-                  Text="{Binding TotalDiscountPercentage}" 
-                  PreviewTextInput="NumericValidation"
+            <TextBlock Text="Order discount:" Margin="20 0"
+                       VerticalAlignment="Center"
+                       FontSize="16" FontWeight="DemiBold"/>
+            <TextBox x:Name="DiscountBox" Width="70" Margin="0 0 20 0"
+                  Text="{Binding TotalDiscountPercentage, FallbackValue=0}" 
+                  PreviewTextInput="NumericValidation" TextChanged="TextBox_TextChanged"
+                  KeyDown="TextBox_KeyDown"
                   Tag="Total Discount %"/>
 
             <Button Content="New Order" 
@@ -85,7 +88,7 @@
                                  Binding="{Binding NetTotal, StringFormat={}{0:C}}"
                                  IsReadOnly="True"/>
 
-               <DataGridTemplateColumn Header="Actions" MinWidth="70" Width="*">
+               <DataGridTemplateColumn Header="Actions" MinWidth="70" Width="*" IsReadOnly="True">
                   <DataGridTemplateColumn.CellTemplate>
                      <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -101,19 +104,23 @@
 
          <Border Grid.Row="1" Background="#F5F5F5" Padding="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-               <TextBlock Text="Total Amount:" Margin="0,0,10,0" FontWeight="Bold"/>
-               <TextBlock Text="{Binding Total, StringFormat=\{0:C\}}" FontWeight="Bold"/>
+               <TextBlock FontWeight="Bold">
+                  <Run Text="Total Amount: " FontSize="14"/>
+                  <Run Text="{Binding Total, Mode=OneWay, StringFormat=\{0:C\}}" FontSize="16"/>
+               </TextBlock>
 
-               <TextBlock Text="Net Total:" Margin="10,0,10,0" FontWeight="Bold"/>
-               <TextBlock Text="{Binding NetTotal, StringFormat=\{0:C\}}" FontWeight="Bold"/>
+               <TextBlock Margin="10,0,10,0" FontWeight="Bold">
+                  <Run Text="Net Total:" FontSize="14"/>
+                  <Run Text="{Binding NetTotal, Mode=OneWay, StringFormat=\{0:C\}}" FontSize="16"/>
+               </TextBlock>
             </StackPanel>
          </Border>
       </Grid>
 
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-         <Button Content="Add Item" 
+         <Button Content="Add Item" Background="ForestGreen"
              Command="{Binding AddOrderItemCommand}"
-             Style="{StaticResource FuturisticButton}"
+             Style="{StaticResource CameleonButton}"
              Margin="0,0,10,0"/>
 
          <Button Content="Save Order" 
@@ -121,9 +128,9 @@
              Style="{StaticResource PrimaryButton}"
              Margin="0,0,10,0"/>
 
-         <Button Content="Cancel" 
+         <Button Content="Cancel" Background="OrangeRed"
              Command="{Binding CancelOrderCommand}"
-             Style="{StaticResource FuturisticButton}"/>
+             Style="{StaticResource CameleonButton}"/>
       </StackPanel>
    </Grid>
 </Page>

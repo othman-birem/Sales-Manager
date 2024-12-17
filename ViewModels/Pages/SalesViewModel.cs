@@ -11,30 +11,43 @@ namespace Sales_Manager.ViewModels.Pages
 {
     public partial class SalesViewModel : BaseViewModel
     {
+        #region services
         private OrderService orderService;
         private ProductService productService;
         private CustomerService customerService;
         private ItemService itemService;
+        #endregion
 
+        #region collections
         [ObservableProperty] public List<Customer> customers;
         [ObservableProperty] public List<Product> products;
         //[ObservableProperty] public ObservableCollection<Item> orderItems;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(Total))]
-        [NotifyPropertyChangedFor(nameof(NetTotal))]
-        public ObservableCollection<ItemViewModel> orderItemViewModels;
+        [ObservableProperty] public ObservableCollection<ItemViewModel> orderItemViewModels;
+        #endregion
 
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasOrder))]
         public Order currentOrder;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(NetTotal))]
+        public double totalDiscountPercentage = 0;
+
+
         [ObservableProperty] public int? selectedCustomer;
 
-        public decimal Total => OrderItemViewModels.Sum(item => item.TotalPrice);
-        public decimal NetTotal => OrderItemViewModels.Sum(item => item.NetTotal);
-
+        public decimal Total => OrderItemViewModels.Sum(item => item.NetTotal);
+        public decimal NetTotal
+        {
+            get
+            {
+                decimal tot = OrderItemViewModels.Sum(item => item.NetTotal);
+                return tot - (tot / (decimal)100.0 * (decimal)TotalDiscountPercentage);
+            }
+        }
+        //TotalPrice - ((TotalPrice / 100) * item.discount
         public bool HasOrder { get { return CurrentOrder != null; } }
 
         internal SalesViewModel(OrderService orderService, ProductService productService, CustomerService customerService, ItemService itemService)
@@ -72,6 +85,17 @@ namespace Sales_Manager.ViewModels.Pages
             }
         }
 
+        private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ItemViewModel.TotalPrice):
+                    OnPropertyChanged(nameof(Total));
+                    OnPropertyChanged(nameof(NetTotal));
+                    break;
+            }
+        }
+
         #region commands
         [RelayCommand]
         public async Task NewOrder()
@@ -102,7 +126,11 @@ namespace Sales_Manager.ViewModels.Pages
             {
                 OrderId = CurrentOrder.Id,
             };
-            OrderItemViewModels.Add(new ItemViewModel(temp, Products));
+
+            var ivm = new ItemViewModel(temp, Products);
+            ivm.PropertyChanged += ItemPropertyChanged;
+
+            OrderItemViewModels.Add(ivm);
             //OrderItems.Add(temp);
         }
 

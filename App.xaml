@@ -32,7 +32,9 @@
             <ResourceDictionary Source="/UI/Themes/dataGrid_columnHeader_theme.xaml"/>
             <ResourceDictionary Source="/UI/Themes/dataGrid_row_theme.xaml"/>
             <ResourceDictionary Source="/UI/Themes/dataGrid_theme.xaml"/>
-            <ResourceDictionary Source="/UI/Themes/scrollBar_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/CameleonButton_theme.xaml"/>
+            
+            
          </ResourceDictionary.MergedDictionaries>
          <Style BasedOn="{StaticResource Textbox_theme}" TargetType="TextBox"/>
          <Style BasedOn="{StaticResource toolTip_theme}" TargetType="ToolTip"/>

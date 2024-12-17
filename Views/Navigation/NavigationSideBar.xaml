@@ -11,7 +11,7 @@
    <DockPanel>
       
       <StackPanel VerticalAlignment="Top" DockPanel.Dock="Top">
-         <RadioButton x:Name="SalesButton" GroupName="NavigationMenuGroup"
+         <RadioButton x:Name="SalesButton" GroupName="NavigationMenuGroup" IsChecked="True"
              Style="{StaticResource NavigationButton}" Tag="POS">
             <i:Interaction.Triggers>
                <i:EventTrigger EventName="Checked">

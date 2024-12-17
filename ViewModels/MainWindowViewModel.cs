@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Web.WebView2.Core;
 using Sales_Manager.EntitiesManagement;
 using Sales_Manager.Services;
 using Sales_Manager.ViewModels.Navigation;
@@ -121,23 +120,23 @@ namespace Sales_Manager.ViewModels
         }
         internal void GOTO_Orders()
         {
-            ActiveView = Orders = new Orders(OrdersViewModel = new OrdersViewModel(orderService));
+            ActiveView = (Orders ??= new Orders(OrdersViewModel ??= new OrdersViewModel(orderService)));
         }
         internal void GOTO_customers()
         {
-            ActiveView = Customers = new Customers(CustomersViewModel = new CustomersViewModel(customerService));
+            ActiveView = (Customers ??= new Customers(CustomersViewModel ??= new CustomersViewModel(customerService)));
         }
         internal void GOTO_settings()
         {
-            ActiveView = Settings = new Settings(SettingsViewModel = new SettingsViewModel());
+            ActiveView = (Settings ??= new Settings(SettingsViewModel ??= new SettingsViewModel()));
         }
         internal void GOTO_accounts()
         {
-            ActiveView = Accounts = new Accounts(AccountsViewModel = new AccountsViewModel(userService));
+            ActiveView = (Accounts ??= new Accounts(AccountsViewModel ??= new AccountsViewModel(userService)));
         }
         internal void GOTO_sales()
         {
-            ActiveView = Sales = new Sales(SalesViewModel = new SalesViewModel(orderService, productService, customerService, itemService));
+            ActiveView = (Sales ??= new Sales(SalesViewModel ??= new SalesViewModel(orderService, productService, customerService, itemService)));
         }
         #endregion
 
