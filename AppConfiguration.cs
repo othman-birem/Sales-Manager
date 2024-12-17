@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Sales_Manager.Models;
 using Sales_Manager.Modules.Helpers;
 using System.IO;
 using System.Windows;
@@ -8,6 +9,7 @@ namespace Sales_Manager
     internal class AppConfiguration
     {
         private static string PathToCollection = DirectorySurfer.GetConfigPath();
+        public List<FavoriteShortcut> favShortcuts = new List<FavoriteShortcut>();
 
 
         #region State Appliance
@@ -60,6 +62,8 @@ namespace Sales_Manager
         {
             AppConfiguration temp = GetDB();
             
+            favShortcuts = temp.favShortcuts;
+
             windowHeight = temp.windowHeight;
             windowWidth = temp.windowWidth;
             windowState = temp.windowState;
@@ -75,7 +79,10 @@ namespace Sales_Manager
         {
             using (StreamWriter writer = new(PathToCollection))
             {
-                string text = JsonConvert.SerializeObject(list, Formatting.Indented);
+                string text = JsonConvert.SerializeObject(list, Formatting.Indented, new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                });
                 writer.Write(text);
             }
         }

@@ -5,22 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sales_Manager"
         xmlns:nav="clr-namespace:Sales_Manager.Views.Navigation"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
         mc:Ignorable="d" FontFamily="/Common/UI/Fonts/#cabin"
-        Title="Sales Manager" Height="500" Width="900">
+        Title="Sales Manager" Height="500" Width="900"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="ClearType"
+        RenderOptions.BitmapScalingMode="HighQuality">
    <Window.Resources>
       <Converters:BoolToGridLengthConverter x:Key="BoolToGridLengthConverter"/>
    </Window.Resources>
    <Grid>
       <Grid.ColumnDefinitions>
-         <ColumnDefinition Width="{Binding IsLoggedIn, Converter={StaticResource BoolToGridLengthConverter}}"
-                           d:Width="80"/>
+         <ColumnDefinition 
+            Width="{Binding IsLoggedIn, Converter={StaticResource BoolToGridLengthConverter}}"
+            d:Width="80"/>
          <ColumnDefinition/>
       </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+         <RowDefinition 
+            Height="{Binding IsLoggedIn, Converter={StaticResource BoolToGridLengthConverter}}"
+            d:Height="60"/>
+         <RowDefinition/>
+      </Grid.RowDefinitions>
 
-      <nav:NavigationSideBar x:Name="navbar"/>
+      <Border Grid.ColumnSpan="2" Background="#2e2e2e">
+         <StackPanel 
+            Orientation="Horizontal"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Favbar" Foreground="White"
+                   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                   FontSize="14" />
+            <ListView
+               Name="Favbar"
+               Height="30" MinWidth="200"
+               Background="Gray"
+               BorderThickness="0"
+               ItemsSource="{Binding Favorites}">
+               <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="SelectionChanged">
+                     <i:ChangePropertyAction
+                        PropertyName="SelectedShortcut"
+                        TargetObject="{Binding Mode=Default, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Path=SelectedItem, ElementName=Favbar}" />
+                  </i:EventTrigger>
+               </i:Interaction.Triggers>
 
-      <Frame x:Name="MainFrame" Grid.Column="1" Navigating="MainFrame_Navigating"
+               <ListView.Resources>
+                  <Style BasedOn="{StaticResource ListViewItemTheme}" TargetType="ListViewItem"/>
+               </ListView.Resources>
+
+               <ListView.ItemTemplate>
+                  <DataTemplate>
+                     <Border
+                        Width="30"
+                        Height="28"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold">
+                           <Run Text="{Binding Name}" />
+                        </TextBlock>
+
+                     </Border>
+
+                  </DataTemplate>
+               </ListView.ItemTemplate>
+               <ListView.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <WrapPanel
+                        Name="GalleryPanel"
+                        IsItemsHost="True"
+                        Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ListView.ItemsPanel>
+            </ListView>
+
+         </StackPanel>
+      </Border>
+      
+      <nav:NavigationSideBar x:Name="navbar" Grid.Row="1"/>
+
+      <Frame x:Name="MainFrame" Grid.Column="1" Grid.Row="1"
+             Navigating="MainFrame_Navigating"
              NavigationUIVisibility="Hidden"
              Content="{Binding ActiveView}"/>
    </Grid>

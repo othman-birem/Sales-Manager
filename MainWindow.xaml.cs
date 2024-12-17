@@ -1,7 +1,7 @@
 ﻿using Sales_Manager.ViewModels;
+using Sales_Manager.ViewModels.Navigation;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
 
 namespace Sales_Manager
 {
@@ -16,31 +16,23 @@ namespace Sales_Manager
             InitializeComponent();
             DataContext = VM;
             viewModel = VM;
-            viewModel.NavigationSidebarViewModel.Navigated += (e) => OnNavigated(e);
+            VM.NavigationSidebarViewModel.PropertyChanged += OnNavigated;
 
             navbar.DataContext = viewModel.NavigationSidebarViewModel;
         }
 
-        private void OnNavigated(object  e)
+        private void OnNavigated(object s, PropertyChangedEventArgs e)
         {
-            switch (int.Parse(e.ToString()))
+            if(e.PropertyName.Equals(nameof(NavigationSidebarViewModel.SelectedIndex)))
             {
-                //    case 1:
-                //        navbar.SalesButton.IsChecked = true;
-                //        break;
-                //    case 2:
-                //        navbar.OrdersButton.IsChecked = true;
-                //        break;
-                //    case 3:
-                //        navbar.CustomersButton.IsChecked = true;
-                //        break;
-                //    case 4:
-                //        navbar.AccountsButton.IsChecked = true;
-                //        break;
-                //    case 5:
-                //        navbar.SettingButton.IsChecked = true;
-                //        break;
+                switch(viewModel.NavigationSidebarViewModel.SelectedIndex)
+                {
+                    case 1:
+                        navbar.SalesButton.IsChecked = true;
+                        break;
+                }
             }
+            
         }
 
         private void MainFrame_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)

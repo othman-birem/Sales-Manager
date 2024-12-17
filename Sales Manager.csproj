@@ -24,6 +24,7 @@
     <None Remove="Assets\Tools\print.png" />
     <None Remove="Assets\Tools\settings.png" />
     <None Remove="Assets\Tools\shopping-cart.png" />
+    <None Remove="Assets\Tools\star.png" />
     <None Remove="UI\Fonts\Cabin-Bold.ttf" />
     <None Remove="UI\Fonts\Cabin-BoldItalic.ttf" />
     <None Remove="UI\Fonts\Cabin-Italic.ttf" />
@@ -76,6 +77,7 @@
     <Resource Include="Assets\Tools\plus.png" />
     <Resource Include="Assets\Tools\print.png" />
     <Resource Include="Assets\Tools\settings.png" />
+    <Resource Include="Assets\Tools\star.png" />
     <Resource Include="UI\Fonts\Cabin-Bold.ttf" />
     <Resource Include="UI\Fonts\Cabin-BoldItalic.ttf" />
     <Resource Include="UI\Fonts\Cabin-Italic.ttf" />
@@ -93,10 +95,6 @@
     <Resource Include="UI\Fonts\Rubik-Italic-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\Rubik-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\SegoeUIVF.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Dialogs\Sales\" />
   </ItemGroup>
 
 </Project>

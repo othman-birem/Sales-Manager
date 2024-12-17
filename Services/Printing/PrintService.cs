@@ -22,25 +22,25 @@ public class PrintService
 
     public void Print()
     {
-        FlowDocument flowDocument = GenerateFlowDocument();
+        //FlowDocument flowDocument = GenerateFlowDocument();
 
-        Window window = new Window();
-        FlowDocumentReader documentReader = new FlowDocumentReader
-        {
-            Document = flowDocument,
-            Margin = new Thickness(10)
-        };
-
-        window.Content = documentReader;
-        window.Show();
-        //PrintDialog printDialog = new();
-        //if (printDialog.ShowDialog() == true)
+        //Window window = new Window();
+        //FlowDocumentReader documentReader = new FlowDocumentReader
         //{
-        //    FlowDocument flowDocument = GenerateFlowDocument();
+        //    Document = flowDocument,
+        //    Margin = new Thickness(10)
+        //};
 
-        //    //IDocumentPaginatorSource idpSource = flowDocument;
-        //    //printDialog.PrintDocument(idpSource.DocumentPaginator, "Order Print");
-        //}
+        //window.Content = documentReader;
+        //window.Show();
+        PrintDialog printDialog = new();
+        if (printDialog.ShowDialog() == true)
+        {
+            FlowDocument flowDocument = GenerateFlowDocument();
+
+            IDocumentPaginatorSource idpSource = flowDocument;
+            printDialog.PrintDocument(idpSource.DocumentPaginator, "Order Print");
+        }
     }
 
     private FlowDocument GenerateFlowDocument()

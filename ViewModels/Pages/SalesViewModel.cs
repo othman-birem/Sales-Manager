@@ -147,6 +147,12 @@ namespace Sales_Manager.ViewModels.Pages
             OnPropertyChanged(nameof(Total));
             OnPropertyChanged(nameof(NetTotal));
         }
+
+        [RelayCommand]
+        public void AddtoFavorites()
+        {
+            AddShortcut(new FavoriteShortcut(1, "POS"));
+        }
         #endregion
     }
 }

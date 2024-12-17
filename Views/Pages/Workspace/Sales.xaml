@@ -21,7 +21,7 @@
       </Grid.RowDefinitions>
 
       <Border Grid.Row="0" Background="#F0F0F0" Padding="10">
-         <StackPanel Orientation="Horizontal">
+         <DockPanel LastChildFill="False">
             <ComboBox x:Name="CustomerComboBox" 
                Width="250" Margin="0,0,10,0" 
                DisplayMemberPath="Name" SelectedValuePath="Id" 
@@ -43,7 +43,38 @@
                  Style="{StaticResource PrimaryButton}"
                  IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"
                  Command="{Binding NewOrderCommand}"/>
-         </StackPanel>
+
+            <Button
+               DockPanel.Dock="Right"
+               Width="auto"
+               Margin="5,0"
+               Padding="10,0"
+               HorizontalAlignment="Right"
+               Command="{Binding AddtoFavoritesCommand}"
+               Style="{StaticResource FloatingBtn_theme}"
+               ToolTip="Add this page to favorites bar">
+               <Button.Content>
+                  <Grid>
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition />
+                     </Grid.ColumnDefinitions>
+                     <Image
+                        Width="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="/Assets/Tools/star.png"/>
+                     <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Favorite"
+                        TextAlignment="Center" />
+                  </Grid>
+
+               </Button.Content>
+            </Button>
+         </DockPanel>
       </Border>
 
       <Grid Grid.Row="1" Margin="10">

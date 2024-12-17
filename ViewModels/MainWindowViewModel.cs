@@ -1,12 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Sales_Manager.EntitiesManagement;
+using Sales_Manager.Models;
 using Sales_Manager.Services;
 using Sales_Manager.ViewModels.Navigation;
 using Sales_Manager.ViewModels.Pages;
 using Sales_Manager.Views.Pages.Authentication;
 using Sales_Manager.Views.Pages.Workspace;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Sales_Manager.ViewModels
 {
@@ -43,8 +46,25 @@ namespace Sales_Manager.ViewModels
         ItemService itemService;
         ProductService productService;
         #endregion
-
         internal DesignTimeDbContextFactory designTimeDbContextFactory { get; init; }
+
+        [ObservableProperty] public ObservableCollection<FavoriteShortcut> favorites;
+        public FavoriteShortcut? SelectedShortcut
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    NavigationSidebarViewModel.SelectedIndex = 1;
+                }
+                CollectionViewSource.GetDefaultView(Favorites).Refresh();
+                OnPropertyChanged(nameof(Favorites));
+            }
+        }
 
         #region
         private bool _isLoggedIn = false;
