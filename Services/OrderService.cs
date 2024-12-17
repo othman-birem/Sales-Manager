@@ -27,7 +27,7 @@ namespace Sales_Manager.Services
         public async Task<List<Order>> GetAsync()
         {
             await Task.Delay(100);
-            return await _context.Orders.AsNoTracking().ToListAsync();
+            return await _context.Orders.AsNoTracking().Include(o => o.Customer).ToListAsync();
         }
 
         public List<Order> Get()
@@ -55,7 +55,10 @@ namespace Sales_Manager.Services
         }
         public IEnumerable<Item> GetOrderItems(int id)
         {
-            return _context.Items.Where(a => a.Id == id).ToList();
+            return _context.Items
+                .Include(o => o.Product)
+                .Include(o => o.Order)
+                .Where(a => a.Id == id).ToList();
         }
     }
 }

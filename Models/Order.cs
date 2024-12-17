@@ -11,7 +11,6 @@ namespace Sales_Manager.Models
         public int Id { get; set; } = 0;
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; } = 0;
 
         [ForeignKey(nameof(CustomerId))]

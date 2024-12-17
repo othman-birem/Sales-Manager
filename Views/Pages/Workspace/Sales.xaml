@@ -5,11 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Workspace"
       xmlns:Converters="clr-namespace:Sales_Manager.Modules.Converters"
+      xmlns:Loader="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       mc:Ignorable="d" FontFamily="/Common/UI/Fonts/#cabin"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" d:Background="White"
       Title="Sales">
    <Page.Resources>
       <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+      <Converters:NegateBoolConverter x:Key="NegateBoolConverter"/>
    </Page.Resources>
    <Grid>
       <Grid.RowDefinitions>
@@ -21,23 +23,25 @@
       <Border Grid.Row="0" Background="#F0F0F0" Padding="10">
          <StackPanel Orientation="Horizontal">
             <ComboBox x:Name="CustomerComboBox" 
-                      Width="250" Margin="0,0,10,0" 
-                      DisplayMemberPath="Name" SelectedValuePath="Id" 
-                      ItemsSource="{Binding Customers}"
-                      Tag="Select Customer"
-                      SelectedValue="{Binding SelectedCustomer}"/>
+               Width="250" Margin="0,0,10,0" 
+               DisplayMemberPath="Name" SelectedValuePath="Id" 
+               ItemsSource="{Binding Customers}"
+               Tag="Select Customer"
+               SelectedValue="{Binding SelectedCustomer}"/>
 
             <TextBlock Text="Order discount:" Margin="20 0"
-                       VerticalAlignment="Center"
-                       FontSize="16" FontWeight="DemiBold"/>
+               VerticalAlignment="Center"
+               FontSize="16" FontWeight="DemiBold"/>
             <TextBox x:Name="DiscountBox" Width="70" Margin="0 0 20 0"
-                  Text="{Binding TotalDiscountPercentage, FallbackValue=0}" 
-                  PreviewTextInput="NumericValidation" TextChanged="TextBox_TextChanged"
-                  KeyDown="TextBox_KeyDown"
-                  Tag="Total Discount %"/>
+               Text="{Binding TotalDiscountPercentage, FallbackValue=0}" 
+               IsEnabled="{Binding HasOrder}"
+               PreviewTextInput="NumericValidation" TextChanged="TextBox_TextChanged"
+               KeyDown="TextBox_KeyDown"
+               Tag="Total Discount %"/>
 
             <Button Content="New Order" 
                  Style="{StaticResource PrimaryButton}"
+                 IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"
                  Command="{Binding NewOrderCommand}"/>
          </StackPanel>
       </Border>
@@ -57,7 +61,10 @@
             Background="White"
             ItemsSource="{Binding OrderItemViewModels}"
             AllowDrop="True" IsReadOnly="False"
-            CanUserReorderColumns="True">
+            CanUserReorderColumns="True"
+            PreviewMouseLeftButtonDown="OrderItemsDataGrid_PreviewMouseLeftButtonDown"
+            MouseMove="OrderItemsDataGrid_MouseMove"
+            Drop="OrderItemsDataGrid_Drop">
             <DataGrid.Columns>
 
                <DataGridTextColumn Header="Id" IsReadOnly="True"
@@ -81,8 +88,8 @@
                <DataGridTextColumn Header="Discount %" MaxWidth="250" MinWidth="150"
                                  Binding="{Binding Discount, Mode=TwoWay}"/>
 
-               <DataGridTextColumn Header="Unit Price" Width="*" IsReadOnly="True"
-                                 Binding="{Binding UnitPrice, StringFormat={}{0:C}}"/>
+               <DataGridTextColumn Header="Unit Price" Width="*"
+                                 Binding="{Binding UnitPrice, Mode=TwoWay, StringFormat={}{0:C}}"/>
 
                <DataGridTextColumn Header="Net Amount" Width="*"
                                  Binding="{Binding NetTotal, StringFormat={}{0:C}}"
@@ -118,19 +125,27 @@
       </Grid>
 
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+         <Loader:LoadingSpinner Name="Spinner" Margin="10 0"
+                       VerticalAlignment="Center"
+                       IsLoading="{Binding IsBusy, FallbackValue=True}"
+                       Thickness="2" Diameter="30" Cap="Round"/>
+         
          <Button Content="Add Item" Background="ForestGreen"
              Command="{Binding AddOrderItemCommand}"
              Style="{StaticResource CameleonButton}"
+             IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"
              Margin="0,0,10,0"/>
 
          <Button Content="Save Order" 
              Command="{Binding SaveOrderCommand}"
              Style="{StaticResource PrimaryButton}"
+             IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"
              Margin="0,0,10,0"/>
 
          <Button Content="Cancel" Background="OrangeRed"
              Command="{Binding CancelOrderCommand}"
-             Style="{StaticResource CameleonButton}"/>
+             Style="{StaticResource CameleonButton}"
+             IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBoolConverter}}"/>
       </StackPanel>
    </Grid>
 </Page>

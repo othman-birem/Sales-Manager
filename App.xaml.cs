@@ -1,5 +1,6 @@
 ﻿using Sales_Manager.EntitiesManagement;
 using Sales_Manager.ViewModels;
+using System.Globalization;
 using System.Windows;
 
 namespace Sales_Manager
@@ -15,6 +16,10 @@ namespace Sales_Manager
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            CultureInfo culture = new("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
 
             config = new AppConfiguration();
             config.Load();

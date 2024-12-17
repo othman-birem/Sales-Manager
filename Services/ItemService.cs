@@ -24,7 +24,10 @@ namespace Sales_Manager.Services
         public async Task<List<Item>> GetAsync()
         {
             await Task.Delay(100);
-            return await _context.Items.AsNoTracking().ToListAsync();
+            return await _context.Items.AsNoTracking()
+                .Include(o => o.Order)
+                .Include(o => o.Product)
+                .ToListAsync();
         }
         public List<Item> Get()
         {
@@ -39,6 +42,10 @@ namespace Sales_Manager.Services
         public async Task AddRangeAsync(IEnumerable<Item> items)
         {
             await _context.Items.AddRangeAsync(items);
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

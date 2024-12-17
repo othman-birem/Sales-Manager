@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Sales_Manager.Views.Pages.Workspace"
       xmlns:Loader="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="900" d:Background="White"
       Title="Orders">
 
    <Grid Name="MainGrid">
@@ -31,26 +31,6 @@
                        Text="Welcome to the Orders Management space"
                        FontSize="17" FontWeight="Light" 
                        Foreground="{Binding headerColor}"/>
-
-            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
-            VerticalAlignment="Center" HorizontalAlignment="Right">
-               <Loader:LoadingSpinner Name="Spinner" Margin="10 0"
-              VerticalAlignment="Center"
-              IsLoading="{Binding IsBusy, FallbackValue=True}"
-              Thickness="2" Diameter="30" Cap="Round"/>
-               <Button x:Name="add_button" 
-                    Style="{StaticResource PrimaryButton}" 
-                    Margin="0,0,20,0"
-                    VerticalAlignment="Center" HorizontalAlignment="Right">
-                  <StackPanel Orientation="Horizontal">
-                     <TextBlock FontSize="15" FontWeight="DemiBold"
-                             Margin="7 0 0 0" VerticalAlignment="Center">
-                     <Image Source="/Assets/Tools/plus.png" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15"/>
-                     <Run Text="Add Order"/>
-                     </TextBlock>
-                  </StackPanel>
-               </Button>
-            </StackPanel>
          </Grid>
          <Border.Effect>
             <DropShadowEffect BlurRadius="10" Direction="260" RenderingBias="Quality"
@@ -58,27 +38,78 @@
          </Border.Effect>
       </Border>
 
+
+      <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+         <TextBlock Text="Sort" VerticalAlignment="Center"/>
+         <ComboBox MinWidth="100" Margin="5 0 15 0" SelectedValue="{Binding SortValue}">
+            <ComboBoxItem Content="A-Z" />
+            <ComboBoxItem Content="Z-A" />
+            <ComboBoxItem Content="Newest - Oldest" />
+            <ComboBoxItem Content="Oldest - Newest" />
+         </ComboBox>
+
+         <TextBox 
+            Style="{StaticResource searchBar}"
+            Text="{Binding SearchInput, Mode=TwoWay}" Width="120" Height="35" 
+            Tag="Search by ID or name" Margin="15 0 10 0" 
+            VerticalAlignment="Center"/>
+
+         <TextBlock Text="From: " VerticalAlignment="Center" Margin="10 0"/>
+         <DatePicker SelectedDate="{Binding FromDate}" Width="100" Height="30" />
+         <TextBlock Text="To: " VerticalAlignment="Center" Margin="10 0"/>
+         <DatePicker SelectedDate="{Binding ToDate}" Width="100" Height="30" />
+
+         <CheckBox 
+            Margin="20 0 0 0"
+            VerticalAlignment="Center"
+            Content="Group by Customer"
+            IsChecked="{Binding GroupByCustomer}" />
+
+         <Button
+            Margin="20 0"
+            Style="{StaticResource PrimaryButton}"
+            Content="Apply Filters" Command="{Binding RefreshFiltersCommand}" />
+      </StackPanel>
+
+
+
       <DataGrid Grid.Row="2" Width="auto" IsReadOnly="True"
                 x:Name="Orders_DataGrid" Margin="0,20,10,0"
-                ItemsSource="{Binding Orders}">
+                ItemsSource="{Binding FilteredOrders}">
          <DataGrid.Columns>
+
+            <DataGridTextColumn Header="Id" Binding="{Binding Id}" MaxWidth="80"/>
+            <DataGridTextColumn Header="Client" Binding="{Binding Customer.Name}" Width="*"/>
+            <DataGridTextColumn Header="Date" Binding="{Binding CreatedAt}" Width="*"/>
+            <DataGridTextColumn Header="Total amount" Binding="{Binding Total}" Width="*"/>
+            <DataGridTextColumn Header="Total net amount" Binding="{Binding NetTotal}" Width="*"/>
+
             <DataGridTemplateColumn x:Name="Operation_btns" Header="Operations" IsReadOnly="True" 
                                      MinWidth="150" Width="auto">
                <DataGridTemplateColumn.CellTemplate>
                   <DataTemplate x:Name="ThreeButtonsPanel">
                      <StackPanel Orientation="Horizontal" Width="auto">
-                        <Button x:Name="Edit_Button" Style="{StaticResource RoundButton}"
-                             DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorLevel=3, AncestorType=Grid}}"
-                             ToolTip="Edit"
-                             Background="#3D7068"
-                             Width="35" Height="35">
+                        <Button 
+                           x:Name="Print_Button" Style="{StaticResource RoundButton}"
+                           Command="{Binding DataContext.PrintCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                           CommandParameter="{Binding}"
+                           ToolTip="Print"
+                           Background="#529ce1"
+                           Width="35" Height="35">
+                           <Image Source="/Assets/Tools/print.png" Margin="9"/>
+                        </Button>
+                        <Button 
+                           x:Name="Edit_Button" Style="{StaticResource RoundButton}"
+                           ToolTip="Edit" Margin="5 0 5 0"
+                           Background="#3D7068"
+                           Width="35" Height="35">
                            <Image Source="/Assets/Tools/pencil.png" Margin="9"/>
                         </Button>
-                        <Button x:Name="Cancel_Button" Margin="5 0 0 0" Style="{StaticResource RoundButton}"
-                             DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorLevel=3, AncestorType=Grid}}"
-                             ToolTip="Delete"
-                             Background="#db4d4a"
-                             Width="35" Height="35">
+                        <Button 
+                           x:Name="Cancel_Button" Style="{StaticResource RoundButton}"
+                           ToolTip="Delete"
+                           Background="#db4d4a"
+                           Width="35" Height="35">
                            <Image Source="/Assets/Tools/cancelIcon.png" Margin="7"/>
                         </Button>
                      </StackPanel>

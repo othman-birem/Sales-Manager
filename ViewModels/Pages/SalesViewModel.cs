@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Sales_Manager.Models;
 using Sales_Manager.Services;
+using Sales_Manager.Services.Printing;
 using Sales_Manager.ViewModels.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace Sales_Manager.ViewModels.Pages
         private ProductService productService;
         private CustomerService customerService;
         private ItemService itemService;
+        private PrintService printService;
         #endregion
 
         #region collections
@@ -23,7 +25,8 @@ namespace Sales_Manager.ViewModels.Pages
         [ObservableProperty] public List<Product> products;
         //[ObservableProperty] public ObservableCollection<Item> orderItems;
 
-        [ObservableProperty] public ObservableCollection<ItemViewModel> orderItemViewModels;
+        [ObservableProperty]
+        public ObservableCollection<ItemViewModel> orderItemViewModels;
         #endregion
 
 
@@ -34,7 +37,6 @@ namespace Sales_Manager.ViewModels.Pages
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(NetTotal))]
         public double totalDiscountPercentage = 0;
-
 
         [ObservableProperty] public int? selectedCustomer;
 
@@ -47,7 +49,7 @@ namespace Sales_Manager.ViewModels.Pages
                 return tot - (tot / (decimal)100.0 * (decimal)TotalDiscountPercentage);
             }
         }
-        //TotalPrice - ((TotalPrice / 100) * item.discount
+
         public bool HasOrder { get { return CurrentOrder != null; } }
 
         internal SalesViewModel(OrderService orderService, ProductService productService, CustomerService customerService, ItemService itemService)
@@ -65,11 +67,6 @@ namespace Sales_Manager.ViewModels.Pages
             IsBusy = true;
             Customers = customerService.Get();
             Products = productService.Get();
-            //OrderItems ??= new();
-
-            //OrderItemViewModels = new ObservableCollection<ItemViewModel>(
-            //        orderService.GetOrderItems((int)CurrentOrder?.Id).Select(item => new ItemViewModel(item, new List<Product>()))
-            //        );
             OrderItemViewModels = new ObservableCollection<ItemViewModel>();
 
             PropertyChanged += ResolvePropertyChange;
@@ -98,7 +95,7 @@ namespace Sales_Manager.ViewModels.Pages
 
         #region commands
         [RelayCommand]
-        public async Task NewOrder()
+        public void NewOrder()
         {
             if (SelectedCustomer == null) { MessageBox.Show("Please select a customer first."); return; }
 
@@ -106,15 +103,25 @@ namespace Sales_Manager.ViewModels.Pages
             {
                 CustomerId = (int)SelectedCustomer,
             };
-            await orderService.Add(CurrentOrder);
         }
 
         [RelayCommand]
         public async Task SaveOrder()
         {
-            var itemsToSave = OrderItemViewModels.Select(vm => vm.ToItem()).ToList();
+            IsBusy = true;
+            CurrentOrder.Total = Total;
+            CurrentOrder.NetTotal = NetTotal;
+
+            CurrentOrder = await orderService.Add(CurrentOrder);
             await orderService.SaveAsync();
+
+            var itemsToSave = OrderItemViewModels.Select(vm => vm.ToItem()).ToList();
+            itemsToSave.ForEach(a => a.OrderId = CurrentOrder.Id);
+            itemsToSave.ForEach(a => a.Product = null);
+
             await itemService.AddRangeAsync(itemsToSave);
+            await itemService.SaveAsync();
+            IsBusy = false;
         }
 
         [RelayCommand]
@@ -131,14 +138,14 @@ namespace Sales_Manager.ViewModels.Pages
             ivm.PropertyChanged += ItemPropertyChanged;
 
             OrderItemViewModels.Add(ivm);
-            //OrderItems.Add(temp);
         }
 
         [RelayCommand]
         public void RemoveOrderItem(object item)
         {
             OrderItemViewModels.Remove((ItemViewModel)item);
-            //OrderItems.Remove((Item)item);
+            OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(NetTotal));
         }
         #endregion
     }

@@ -21,6 +21,7 @@
     <None Remove="Assets\Tools\cancelIcon.png" />
     <None Remove="Assets\Tools\pencil.png" />
     <None Remove="Assets\Tools\plus.png" />
+    <None Remove="Assets\Tools\print.png" />
     <None Remove="Assets\Tools\settings.png" />
     <None Remove="Assets\Tools\shopping-cart.png" />
     <None Remove="UI\Fonts\Cabin-Bold.ttf" />
@@ -73,6 +74,7 @@
     <Resource Include="Assets\Tools\cancelIcon.png" />
     <Resource Include="Assets\Tools\pencil.png" />
     <Resource Include="Assets\Tools\plus.png" />
+    <Resource Include="Assets\Tools\print.png" />
     <Resource Include="Assets\Tools\settings.png" />
     <Resource Include="UI\Fonts\Cabin-Bold.ttf" />
     <Resource Include="UI\Fonts\Cabin-BoldItalic.ttf" />
@@ -91,6 +93,10 @@
     <Resource Include="UI\Fonts\Rubik-Italic-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\Rubik-VariableFont_wght.ttf" />
     <Resource Include="UI\Fonts\SegoeUIVF.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Dialogs\Sales\" />
   </ItemGroup>
 
 </Project>

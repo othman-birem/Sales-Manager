@@ -33,6 +33,7 @@
             <ResourceDictionary Source="/UI/Themes/dataGrid_row_theme.xaml"/>
             <ResourceDictionary Source="/UI/Themes/dataGrid_theme.xaml"/>
             <ResourceDictionary Source="/UI/Themes/CameleonButton_theme.xaml"/>
+            <ResourceDictionary Source="/UI/Themes/searchBar_theme.xaml"/>
             
             
          </ResourceDictionary.MergedDictionaries>

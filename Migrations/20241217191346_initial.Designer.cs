@@ -12,7 +12,7 @@ using Sales_Manager.EntitiesManagement;
 namespace Sales_Manager.Migrations
 {
     [DbContext(typeof(SalesManagerContext))]
-    [Migration("20241215174448_initial")]
+    [Migration("20241217191346_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -58,7 +58,6 @@ namespace Sales_Manager.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<long>("Quantity")
@@ -88,7 +87,6 @@ namespace Sales_Manager.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<decimal>("NetTotal")

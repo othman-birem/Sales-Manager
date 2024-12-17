@@ -16,7 +16,6 @@ namespace Sales_Manager.Models
         public Order Order { get; set; }
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; } = 0;
 
         [ForeignKey(nameof(ProductId))]

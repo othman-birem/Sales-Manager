@@ -55,7 +55,6 @@ namespace Sales_Manager.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<long>("Quantity")
@@ -85,7 +84,6 @@ namespace Sales_Manager.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<decimal>("NetTotal")
