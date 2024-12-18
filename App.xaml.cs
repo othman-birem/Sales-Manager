@@ -18,7 +18,7 @@ namespace Sales_Manager
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            CatchInternalExceptions(e);
 
             CultureInfo culture = new("en-US");
             Thread.CurrentThread.CurrentCulture = culture;
@@ -28,9 +28,10 @@ namespace Sales_Manager
             config.Load();
 
             DesignTimeDbContextFactory factory = new();
-            MainVM = new MainWindowViewModel(factory);
-
-            MainVM.Favorites = new System.Collections.ObjectModel.ObservableCollection<FavoriteShortcut>(config.favShortcuts);
+            MainVM = new(factory)
+            {
+                Favorites = new System.Collections.ObjectModel.ObservableCollection<FavoriteShortcut>(config.favShortcuts)
+            };
 
             MainWindow win = new(MainVM);
             config.SetState(win);
@@ -42,6 +43,29 @@ namespace Sales_Manager
             config?.Save();
 
             base.OnExit(e);
+        }
+
+        private void CatchInternalExceptions(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                MessageBox.Show($"Unhandled exception: {args.ExceptionObject}");
+            };
+
+            DispatcherUnhandledException += (sender, args) =>
+            {
+                MessageBox.Show($"UI thread exception: {args.Exception.Message}");
+                args.Handled = true;
+                Current.Shutdown();
+            };
+
+            TaskScheduler.UnobservedTaskException += (sender, args) =>
+            {
+                MessageBox.Show($"Task exception: {args.Exception.Message}");
+                args.SetObserved();
+            };
         }
 
         private async void DispatcherOnUnhandledException(DispatcherUnhandledExceptionEventArgs args)
@@ -58,6 +82,12 @@ namespace Sales_Manager
                 ? "Network error" : "Unknown error";
             MessageBox.Show($"{errorType}: {args.Exception.GetType().Name}");
         }
+
+
+        /// <summary>
+        /// Inserts a shortcut in the favorites bar.
+        /// </summary>
+        /// <param name="shortcut">The object representing the target page shortcut.</param>
         internal void AddShortcut(FavoriteShortcut shortcut)
         {
             var identical = MainVM.Favorites.FirstOrDefault(x => x.Equals(shortcut));
@@ -71,5 +101,4 @@ namespace Sales_Manager
             config.favShortcuts.Add(shortcut);
         }
     }
-
 }

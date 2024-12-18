@@ -22,10 +22,8 @@ namespace Sales_Manager.Services
         {
             return _context.Users.ToList();
         }
-        public async Task Delete(int id)
+        public async Task Delete(User obj)
         {
-            var obj = await _context.Users.FindAsync(id);
-
             if (obj != null)
             {
                 _context.Users.Remove(obj);

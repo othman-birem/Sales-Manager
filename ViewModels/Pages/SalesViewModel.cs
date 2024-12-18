@@ -153,6 +153,12 @@ namespace Sales_Manager.ViewModels.Pages
         {
             AddShortcut(new FavoriteShortcut(1, "POS"));
         }
+
+        [RelayCommand]
+        public void Loaded()
+        {
+            ResolveProperties();
+        }
         #endregion
     }
 }

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Sales_Manager.Models;
 using Sales_Manager.Services;
+using Sales_Manager.Services.Printing;
 using System.Collections.ObjectModel;
 
 namespace Sales_Manager.ViewModels.Pages
@@ -9,12 +10,13 @@ namespace Sales_Manager.ViewModels.Pages
     public partial class OrdersViewModel : BaseViewModel
     {
         private readonly OrderService orderService;
+        private PrintService printService;
 
         public ObservableCollection<Order> FilteredOrders { get; private set; } = new();
 
         [ObservableProperty] private string searchInput;
 
-        [ObservableProperty] private int sortValue;
+        [ObservableProperty] private int sortValue = -1;
 
         [ObservableProperty] private DateTime? fromDate;
 
@@ -61,6 +63,7 @@ namespace Sales_Manager.ViewModels.Pages
 
             query = SortValue switch
             {
+                -1 => query,
                 0 => query.OrderBy(o => o.Customer.Name),
                 1 => query.OrderByDescending(o => o.Customer.Name),
                 2 => query.OrderByDescending(o => o.CreatedAt),
@@ -85,6 +88,32 @@ namespace Sales_Manager.ViewModels.Pages
         private void RefreshFilters()
         {
             ApplyFiltersAndSorting();
+        }
+        
+        [RelayCommand]
+        public void Print(object obj)
+        {
+            if (obj is Order order)
+            {
+                var orderItems = orderService.GetOrderItems(order.Id);
+                printService = new PrintService(orderItems, order);
+                printService.Print();
+            }
+        }
+
+        [RelayCommand]
+        public void Edit(object obj)
+        {
+            
+        }
+
+        [RelayCommand]
+        public async Task Delete(object obj)
+        {
+            IsBusy = true;
+            await orderService.Delete((Order)obj);
+            await ResolveProperties();
+            IsBusy = false;
         }
     }
 

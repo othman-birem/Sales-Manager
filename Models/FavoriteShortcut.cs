@@ -10,9 +10,10 @@ namespace Sales_Manager.Models
         }
         public int PageIndex { get; set; }
         public string Name { get; set; }
+
         public override bool Equals(object? obj)
         {
-            if (!(obj is FavoriteShortcut))
+            if (obj is not FavoriteShortcut)
                 return base.Equals(obj);
             return ((FavoriteShortcut)obj).PageIndex == this.PageIndex;
         }

@@ -18,7 +18,7 @@ namespace Sales_Manager.Services
             throw new NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public Task Delete(Product obj)
         {
             throw new NotImplementedException();
         }

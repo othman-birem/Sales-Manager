@@ -9,29 +9,27 @@ namespace Sales_Manager.Services
     internal interface IService<T>
     {
         /// <summary>
-        /// Deletes an entity by its identifier.
+        /// Deletes an entity asyncronously.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity.</param>
-        Task Delete(int id);
+        /// <param name="obj">The object targeted by the process.</param>
+        Task Delete(T obj);
 
         /// <summary>
-        /// Deletes an entity by its identifier.
+        /// Inserts an object to the database asyncronously.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity.</param>
+        /// <param name="obj">The object targeted by the process.</param>
         Task<T> Add(T obj);
 
         /// <summary>
-        /// Retrieves an entity asynchronously by its identifier.
+        /// Retrieves all entities asynchronously from the database.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity.</param>
-        /// <returns>A Task that represents the asynchronous operation. The task result contains the entity.</returns>
+        /// <returns>A Task that represents the asynchronous operation. The task result contains the list entity.</returns>
         Task<List<T>> GetAsync();
 
         /// <summary>
-        /// Retrieves an entity asynchronously by its identifier.
+        /// Retrieves an entity.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity.</param>
-        /// <returns>A Task that represents the asynchronous operation. The task result contains the entity.</returns>
+        /// <returns>The list containing all of the entities.</returns>
         List<T> Get();
 
         /// <summary>

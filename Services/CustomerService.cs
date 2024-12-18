@@ -40,13 +40,11 @@ namespace Sales_Manager.Services
         {
             return _context.Customers.ToList();
         }
-        public async Task Delete(int id)
+        public async Task Delete(Customer obj)
         {
-            var customer = await _context.Customers.FindAsync(id);
-
-            if (customer != null)
+            if (obj != null)
             {
-                _context.Customers.Remove(customer);
+                _context.Customers.Remove(obj);
                 await _context.SaveChangesAsync();
             }
         }

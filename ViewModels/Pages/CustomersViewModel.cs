@@ -43,7 +43,7 @@ namespace Sales_Manager.ViewModels.Pages
             if (result == MessageBoxResult.Yes)
             {
                 IsBusy = true;
-                await customerService.Delete(int.Parse(((Customer)id).Id.ToString()));
+                await customerService.Delete((Customer)id);
                 ResolveProperties();
                 IsBusy = false;
             }

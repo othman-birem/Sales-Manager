@@ -41,7 +41,8 @@
 
       <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
          <TextBlock Text="Sort" VerticalAlignment="Center"/>
-         <ComboBox MinWidth="100" Margin="5 0 15 0" SelectedValue="{Binding SortValue}">
+         <ComboBox MinWidth="100" Margin="5 0 15 0" SelectedIndex="{Binding SortValue}"
+                   Tag="Select">
             <ComboBoxItem Content="A-Z" />
             <ComboBoxItem Content="Z-A" />
             <ComboBoxItem Content="Newest - Oldest" />
@@ -50,7 +51,7 @@
 
          <TextBox 
             Style="{StaticResource searchBar}"
-            Text="{Binding SearchInput, Mode=TwoWay}" Width="120" Height="35" 
+            Text="{Binding SearchInput, Mode=TwoWay}" MinWidth="120" Height="35" 
             Tag="Search by ID or name" Margin="15 0 10 0" 
             VerticalAlignment="Center"/>
 
@@ -99,15 +100,10 @@
                            <Image Source="/Assets/Tools/print.png" Margin="9"/>
                         </Button>
                         <Button 
-                           x:Name="Edit_Button" Style="{StaticResource RoundButton}"
-                           ToolTip="Edit" Margin="5 0 5 0"
-                           Background="#3D7068"
-                           Width="35" Height="35">
-                           <Image Source="/Assets/Tools/pencil.png" Margin="9"/>
-                        </Button>
-                        <Button 
                            x:Name="Cancel_Button" Style="{StaticResource RoundButton}"
-                           ToolTip="Delete"
+                           Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                           CommandParameter="{Binding}"
+                           ToolTip="Delete" Margin="5 0 5 0"
                            Background="#db4d4a"
                            Width="35" Height="35">
                            <Image Source="/Assets/Tools/cancelIcon.png" Margin="7"/>

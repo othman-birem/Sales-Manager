@@ -27,7 +27,10 @@ namespace Sales_Manager.Services
         public async Task<List<Order>> GetAsync()
         {
             await Task.Delay(100);
-            return await _context.Orders.AsNoTracking().Include(o => o.Customer).ToListAsync();
+            return await _context.Orders
+                .AsNoTracking()
+                .Include(o => o.Customer)
+                .ToListAsync();
         }
 
         public List<Order> Get()
@@ -35,9 +38,10 @@ namespace Sales_Manager.Services
             return _context.Orders.ToList();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Order entity)
